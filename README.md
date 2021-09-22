@@ -7,7 +7,7 @@ A wep application for automating the Massalia roleplay Discord server's game.
 ### Main documents
 
 * [Software requirements](docs/markdown/software-requirements.md)
-* Domain model
+* [Design model](docs/markdown/design-model.md)
 
 ### Application description
 
@@ -21,7 +21,7 @@ The web app stores the amount of each unit present in the Massilian army and nav
 
 ##### Infrastructure
 
-The city of Massilia has a number of buildings that contribute to the city's prosperity. Every building must be maintained each turn. Thus, every buidling's expenses must be taken into consideration at the end of each turn. The city can house multiple buildings of the same type. New building types can also be created.
+The city of Massilia has a number of buildings that contribute to the city's prosperity. Every building must be maintained every 2 turns. Thus, every buidling's expenses must be taken into consideration at the end of every other turn. The city can house multiple buildings of the same type. New building types can also be created.
 
 ##### Demographics
 

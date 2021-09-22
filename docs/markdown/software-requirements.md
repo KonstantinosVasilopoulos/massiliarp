@@ -34,9 +34,13 @@ This document presents a synopsis of the software requirements for the online ap
 ##### Use cases' descriptions
 
 ##### UC1 - User Login
+
 ##### [UC2 - Change Turn](uc2-change-turn.md)
+
 ##### UC3 - Edit Army & Navy
+
 ##### UC4 - Edit Buildings
+
 ##### UC5 - Create Unique Event
 
 #### Auxilliary specifications
