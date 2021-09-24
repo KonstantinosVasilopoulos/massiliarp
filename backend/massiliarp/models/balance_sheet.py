@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from backend.massiliarp.models import MassiliaSettings, UniqueEvent
+from .unique_event import UniqueEvent
 
 
 class BalanceSheet(models.Model):
@@ -26,7 +26,7 @@ class BalanceSheet(models.Model):
     total_expenses = models.DecimalField(_('Total expenses'), max_digits=7, decimal_places=2, blank=True, null=True)
     new_balance = models.DecimalField(_('New balance'), max_digits=7, decimal_places=2, blank=True, null=True)
     archived = models.BooleanField(_('Archived'), default=False)
-    settings = models.ForeignKey(MassiliaSettings, on_delete=models.SET_NULL, required=True)
+    settings = models.ForeignKey('MassiliaSettings', on_delete=models.SET_NULL, null=True)
 
 
     def calculate_standard_income(self):

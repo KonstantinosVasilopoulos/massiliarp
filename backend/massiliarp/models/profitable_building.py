@@ -1,13 +1,13 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from backend.massiliarp.models import BuildingType, MassiliaSettings
+from .building_type import BuildingType
 
 
 class ProfitableBuilding(BuildingType):
     """ A Massilian building that generates income for the state. """
     building_income = models.DecimalField(_('Income'), max_digits=4, decimal_places=2)
-    settings = models.ForeignKey(MassiliaSettings, on_delete=models.CASCADE, required=True)
+    settings = models.ForeignKey('MassiliaSettings', on_delete=models.CASCADE)
 
 
     def __str__(self):

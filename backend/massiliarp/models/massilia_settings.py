@@ -1,7 +1,11 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from backend.massiliarp.models import ProfitableBuilding, MaintainableBuilding, ArmyUnit, NavyUnit, BalanceSheet
+from .profitable_building import ProfitableBuilding
+from .maintainable_building import MaintainableBuilding
+from .army_unit import ArmyUnit
+from .navy_unit import NavyUnit
+from .balance_sheet import BalanceSheet
 
 class SingletonModel(models.Model):
 
