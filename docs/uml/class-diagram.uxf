@@ -5,19 +5,25 @@
     <id>UMLClass</id>
     <coordinates>
       <x>580</x>
-      <y>250</y>
+      <y>220</y>
       <w>250</w>
-      <h>170</h>
+      <h>270</h>
     </coordinates>
-    <panel_attributes>*Massilia*
+    <panel_attributes>*MassiliaSettings*
 &lt;&lt;Singleton&gt;&gt;
 --
 + turn: PSIF
 + year: PSIF
++ taxation: DecimalField
++ trade: DecimalField
++ polis_tributes: DecimalField
++ miscellaneous: DecimalField
 + garrison_upkeep: DecimalField
++ balance: DecimalField
 --
 + end_turn(): boolean
 + calculate_maintenance(): decimal
++ calculate_building_income(): decimal
 + calculate_army_upkeep(): decimal
 + calculate_navy_upkeep(): decimal</panel_attributes>
     <additional_attributes/>
@@ -25,38 +31,46 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>560</x>
-      <y>550</y>
-      <w>290</w>
-      <h>240</h>
+      <x>550</x>
+      <y>590</y>
+      <w>310</w>
+      <h>340</h>
     </coordinates>
     <panel_attributes>*BalanceSheet*
 --
+_+ turn: PSIF_
 + taxation: DecimalField
 + trade: DecimalField
 + polis_tributes: DecimalField
++ miscellaneous: DecimalField
 + army_upkeep: DecimalField
 + navy_upkeep: DecimalField
 + garrison_upkeep: DecimalField
 + infrasturcture_maintenance: DecimalField
++ total_income: DecimalField
++ total_expenses: DecimalField
++ new_balance: DecimalField
 + archived: BooleanField
 --
-+ calculate_standard_income(): null
-+ calculate_standard_expenses(): null
-+ count_unique_events_in(): null</panel_attributes>
++ calculate_standard_income(): decimal
++ calculate_standard_expenses(): decimal
++ calculate_income(): decimal
++ calculate_expenses(): decimal
++ calculate_new_balance(): decimal
++ calculate_net_difference(): (boolean, decimal)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>700</x>
-      <y>410</y>
+      <y>480</y>
       <w>50</w>
-      <h>160</h>
+      <h>130</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m2=0..*</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
@@ -69,7 +83,7 @@ m2=0..*</panel_attributes>
     <panel_attributes>*Unit*
 { abstract }
 --
-+ name: CharField
+_+ name: CharField_
 + recruitment_cost: DecimalField
 + upkeep_cost: DecimalField
 + units_recruited: PIF</panel_attributes>
@@ -118,7 +132,7 @@ m2=0..*</panel_attributes>
     <id>UMLNote</id>
     <coordinates>
       <x>200</x>
-      <y>50</y>
+      <y>40</y>
       <w>250</w>
       <h>60</h>
     </coordinates>
@@ -145,22 +159,24 @@ _+ name: CharField_
     <id>UMLClass</id>
     <coordinates>
       <x>200</x>
-      <y>600</y>
+      <y>640</y>
       <w>210</w>
-      <h>110</h>
+      <h>120</h>
     </coordinates>
     <panel_attributes>*UniqueEvent*
 --
 + name: CharField
 + event_type: EvetTypes
-+ talents: DecimalField</panel_attributes>
++ talents: DecimalField
++ turn: PSIF
++ expired: BooleanField</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
       <x>200</x>
-      <y>730</y>
+      <y>790</y>
       <w>210</w>
       <h>100</h>
     </coordinates>
@@ -175,18 +191,18 @@ Expense</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>400</x>
-      <y>650</y>
-      <w>180</w>
+      <y>690</y>
+      <w>170</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=0..*</panel_attributes>
-    <additional_attributes>160.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>80</x>
+      <x>90</x>
       <y>440</y>
       <w>220</w>
       <h>70</h>
@@ -199,9 +215,9 @@ m2=0..*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>340</x>
+      <x>320</x>
       <y>440</y>
-      <w>260</w>
+      <w>250</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>*MaintainableBuilding*
@@ -212,29 +228,29 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>180</x>
+      <x>190</x>
       <y>370</y>
-      <w>110</w>
+      <w>100</w>
       <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>90.0;10.0;90.0;40.0;10.0;40.0;10.0;70.0</additional_attributes>
+    <additional_attributes>80.0;10.0;80.0;40.0;10.0;40.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>370</x>
       <y>370</y>
-      <w>110</w>
+      <w>90</w>
       <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0;90.0;40.0;90.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;70.0;40.0;70.0;70.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>820</x>
+      <x>860</x>
       <y>450</y>
       <w>180</w>
       <h>70</h>
@@ -247,7 +263,7 @@ m2=0..*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1110</x>
+      <x>1070</x>
       <y>450</y>
       <w>180</w>
       <h>70</h>
@@ -260,23 +276,51 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>900</x>
+      <x>940</x>
       <y>380</y>
-      <w>130</w>
+      <w>90</w>
       <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>110.0;10.0;110.0;40.0;10.0;40.0;10.0;70.0</additional_attributes>
+    <additional_attributes>70.0;10.0;70.0;40.0;10.0;40.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1090</x>
       <y>380</y>
-      <w>120</w>
+      <w>80</w>
       <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;40.0;100.0;40.0;100.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;40.0;60.0;40.0;60.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>620</x>
+      <y>30</y>
+      <w>170</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>*SingletonModel*
+{ abstract }
+--
+--
++ save(): null
++ delete(): null
++ load(cls): Object</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>700</x>
+      <y>140</y>
+      <w>30</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
   </element>
 </diagram>

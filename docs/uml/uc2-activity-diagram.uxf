@@ -4,7 +4,7 @@
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>760</x>
+      <x>750</x>
       <y>0</y>
       <w>40</w>
       <h>40</h>
@@ -15,7 +15,7 @@
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>710</x>
+      <x>700</x>
       <y>120</y>
       <w>140</w>
       <h>60</h>
@@ -27,7 +27,7 @@ Button</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
+      <x>760</x>
       <y>30</y>
       <w>30</w>
       <h>110</h>
@@ -38,7 +38,7 @@ Button</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
+      <x>760</x>
       <y>170</y>
       <w>30</w>
       <h>110</h>
@@ -49,7 +49,7 @@ Button</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>710</x>
+      <x>700</x>
       <y>400</y>
       <w>140</w>
       <h>60</h>
@@ -61,7 +61,7 @@ Balance Sheet</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>750</x>
+      <x>740</x>
       <y>260</y>
       <w>60</w>
       <h>60</h>
@@ -72,7 +72,7 @@ Balance Sheet</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
+      <x>760</x>
       <y>310</y>
       <w>120</w>
       <h>110</h>
@@ -84,7 +84,7 @@ Balance Sheet</panel_attributes>
   <element>
     <id>Text</id>
     <coordinates>
-      <x>800</x>
+      <x>790</x>
       <y>250</y>
       <w>150</w>
       <h>30</h>
@@ -95,19 +95,19 @@ Balance Sheet</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>510</x>
+      <x>500</x>
       <y>280</y>
       <w>270</w>
-      <h>1000</h>
+      <h>860</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 [user cancels]</panel_attributes>
-    <additional_attributes>250.0;980.0;10.0;980.0;10.0;10.0;240.0;10.0</additional_attributes>
+    <additional_attributes>250.0;840.0;10.0;840.0;10.0;10.0;240.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
+      <x>760</x>
       <y>450</y>
       <w>30</w>
       <h>110</h>
@@ -118,19 +118,18 @@ Balance Sheet</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>710</x>
+      <x>700</x>
       <y>540</y>
       <w>140</w>
       <h>60</h>
     </coordinates>
-    <panel_attributes>Calculate Standard
-Income</panel_attributes>
+    <panel_attributes>Calculate Income</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
+      <x>760</x>
       <y>590</y>
       <w>30</w>
       <h>110</h>
@@ -141,19 +140,18 @@ Income</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>710</x>
+      <x>700</x>
       <y>680</y>
       <w>140</w>
       <h>60</h>
     </coordinates>
-    <panel_attributes>Calculate Standard
-Expenses</panel_attributes>
+    <panel_attributes>Calculate Expenses</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
+      <x>760</x>
       <y>730</y>
       <w>30</w>
       <h>110</h>
@@ -164,31 +162,8 @@ Expenses</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>710</x>
+      <x>700</x>
       <y>820</y>
-      <w>140</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>Get Unique Events'
-Costs</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>770</x>
-      <y>870</y>
-      <w>30</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLState</id>
-    <coordinates>
-      <x>710</x>
-      <y>960</y>
       <w>140</w>
       <h>60</h>
     </coordinates>
@@ -199,8 +174,8 @@ Balance Sheet</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
-      <y>1010</y>
+      <x>760</x>
+      <y>870</y>
       <w>30</w>
       <h>110</h>
     </coordinates>
@@ -210,8 +185,8 @@ Balance Sheet</panel_attributes>
   <element>
     <id>UMLState</id>
     <coordinates>
-      <x>710</x>
-      <y>1100</y>
+      <x>700</x>
+      <y>960</y>
       <w>140</w>
       <h>60</h>
     </coordinates>
@@ -221,8 +196,8 @@ Balance Sheet</panel_attributes>
   <element>
     <id>UMLSpecialState</id>
     <coordinates>
-      <x>760</x>
-      <y>1240</y>
+      <x>750</x>
+      <y>1100</y>
       <w>40</w>
       <h>40</h>
     </coordinates>
@@ -232,8 +207,8 @@ Balance Sheet</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>770</x>
-      <y>1150</y>
+      <x>760</x>
+      <y>1010</y>
       <w>30</w>
       <h>110</h>
     </coordinates>

@@ -22,9 +22,8 @@
 ##### B) The new balance sheet is generated
 
 1. Create new balance sheet.
-2. Calculate income from fixed sources(taxes, trade & tributes).
-3. Calculate the cost for fixed expenses(army and navy upkeep cost, garrison and )
-4. Iterate the unique events and include their income/expenses in the new balance sheet.
+2. Calculate income from all sources(including unique events).
+3. Calculate the cost for all expenses.
 5. Archive the previous balance sheet.
 6. Change the turn.
 
