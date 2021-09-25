@@ -11,4 +11,4 @@ class ProfitableBuilding(BuildingType):
 
 
     def __str__(self):
-        return f'{self.name.title()} +{self.building_income} talents'
+        return f'{self.number_built} {self.name.title()} +{self.building_income} talents'

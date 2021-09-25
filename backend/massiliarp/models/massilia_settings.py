@@ -76,7 +76,7 @@ class MassiliaSettings(SingletonModel):
     def calculate_maintenance(self):
         maintenance = 0.0
         for building in MaintainableBuilding.objects.filter(settings=self):
-            maintenance += building.building_maintenance
+            maintenance += building.building_maintenance * building.number_built
 
         return maintenance
 
