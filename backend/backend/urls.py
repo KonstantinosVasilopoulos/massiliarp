@@ -14,8 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
+from massiliarp import views
+
+
+router = routers.DefaultRouter()
+router.register(r'city-population', views.CityPopulationView)
+router.register(r'massilia-settings', views.MassiliaSettingsView)
+router.register(r'profitable-building', views.ProfitableBuildingView)
+router.register(r'maintenable-building', views.MaintainableBuildingView)
+router.register(r'army-unit', views.ArmyUnitView)
+router.register(r'navy-unit', views.NavyUnitView)
+router.register(r'balance-sheet', views.BalanceSheetView)
+router.register(r'unique-event', views.UniqueEventView)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include(router.urls)),
 ]
