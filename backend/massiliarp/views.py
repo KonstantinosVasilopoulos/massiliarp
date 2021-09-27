@@ -1,4 +1,9 @@
+from django.contrib.auth import authenticate
 from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 from .serializers import CityPopulationSerializer, ProfitableBuildingSerializer, \
     MaintainableBuildingSerializer, MassiliaSettingsSerializer, ArmyUnitSerializer, \
     NavyUnitSerializer, BalanceSheetSerializer, UniqueEventSerializer
@@ -44,3 +49,28 @@ class BalanceSheetView(viewsets.ModelViewSet):
 class UniqueEventView(viewsets.ModelViewSet):
     serializer_class = UniqueEventSerializer
     queryset = UniqueEvent.objects.all()
+
+
+class LoginView(APIView):
+    """ The homepage of the app which serves as a login page. """
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        # Find the user and authenticate the user
+        username = request.data['username']
+        password = request.data['password']
+        user = authenticate(username=username, password=password)
+
+        # Make sure that the user exists
+        ERROR_RESPONSE = Response({
+            'message': 'failure'
+        })
+        if user is None:
+            raise AuthenticationFailed('User not found!')
+
+        if not user.check_password(password):
+            raise AuthenticationFailed('Incorrect password!')
+
+        return Response({
+            'message': 'success'
+        })
