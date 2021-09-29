@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from rest_framework import viewsets
 from rest_framework.views import APIView
-from rest_framework.exceptions import AuthenticationFailed
+# from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from .serializers import CityPopulationSerializer, ProfitableBuildingSerializer, \
@@ -62,14 +62,15 @@ class LoginView(APIView):
         user = authenticate(username=username, password=password)
 
         # Make sure that the user exists
-        ERROR_RESPONSE = Response({
-            'message': 'failure'
-        })
         if user is None:
-            raise AuthenticationFailed('User not found!')
+            return Response({
+                'message': 'Wrong username or password!'
+            })
 
         if not user.check_password(password):
-            raise AuthenticationFailed('Incorrect password!')
+            return Response({
+                'message': 'Wrong username or password!'
+            })
 
         return Response({
             'message': 'success'

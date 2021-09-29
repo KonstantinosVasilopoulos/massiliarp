@@ -1,9 +1,13 @@
-import Login from './components/Login'
+import { FC, ReactNode } from 'react'
 
-function App() {
+type Props = {
+  children: ReactNode
+}
+
+const App: FC<Props> = ({ children }) => {
   return (
     <>
-      <Login />
+      {children}
     </>
   )
 }
