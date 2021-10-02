@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import axios from 'axios'
+import { BACKEND_URL } from '../App'
 
 const Login = () => {
     // State
@@ -13,7 +14,7 @@ const Login = () => {
     const onLoginSubmit = (event: React.FormEvent) => {
         event.preventDefault()
         if (username !== '' && password !== '') {
-            axios.post('http://127.0.0.1:8000',
+            axios.post(BACKEND_URL,
                 {
                     'username': username,
                     'password': password

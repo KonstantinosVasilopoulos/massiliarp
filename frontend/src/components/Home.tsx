@@ -9,7 +9,7 @@ const Home = () => {
 
     return (
         <>
-            <Navbar initSettings={['units', 'population']} />
+            <Navbar initSettings={['units', 'buidlings', 'population']} />
         </>
     )
 }

@@ -46,10 +46,10 @@ const Navbar: FC<Props> = ({ initSettings }) => {
                     <div id="settings-dropdown">
                         {settings.map((i) => (
                             <>
-                                <Link to={'/' + i} className="text-salmon-dark font-semibold hover:opacity-60">{capitilize(i)}</Link><br />
+                                <Link to={'/' + i} className="text-blue font-semibold hover:text-salmon-dark">{capitilize(i)}</Link><br />
                             </>
                         ))}
-                        <Link to="/logout" className="text-salmon-dark font-semibold hover:opacity-60">Logout</Link>
+                        <Link to="/logout" className="text-blue font-semibold hover:text-salmon-dark">Logout</Link>
                     </div>
                 }
             </li>
