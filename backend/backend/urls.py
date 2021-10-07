@@ -16,7 +16,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-# from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from massiliarp import views
 
 
@@ -33,7 +32,9 @@ router.register(r'unique-event', views.UniqueEventView)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('', views.LoginView.as_view(), name='login')
-    # path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('login/', views.LoginView.as_view(), name='login'),
+    path('logout/', views.LogoutView.as_view(), name='logout'),
+    path('csrf/', views.CSRFView.as_view(), name='csrf'),
+    path('session/', views.SessionView.as_view(), name='session'),
+    path('whoami/', views.WhoAmIView.as_view(), name='whoami'),
 ]

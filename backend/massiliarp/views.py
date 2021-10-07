@@ -1,8 +1,12 @@
-from django.contrib.auth import authenticate
+import json
+from django.contrib.auth import authenticate, login, logout
+from django.http import JsonResponse
+from django.middleware.csrf import get_token
+from django.views.generic import View
 from rest_framework import viewsets
 from rest_framework.views import APIView
-# from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import AllowAny
 from .serializers import CityPopulationSerializer, ProfitableBuildingSerializer, \
     MaintainableBuildingSerializer, MassiliaSettingsSerializer, ArmyUnitSerializer, \
@@ -52,26 +56,54 @@ class UniqueEventView(viewsets.ModelViewSet):
 
 
 class LoginView(APIView):
-    """ The homepage of the app which serves as a login page. """
     permission_classes = [AllowAny]
 
     def post(self, request):
-        # Find the user and authenticate the user
-        username = request.data['username']
-        password = request.data['password']
+        data = json.loads(request.body)
+        username = data['username']
+        password = data['password']
+
+        # Check user credentials
+        if username is None or password is None:
+            return JsonResponse({'detail': 'Please provide username and password.'}, status=400)
+
+        # Authenticate the user
         user = authenticate(username=username, password=password)
-
-        # Make sure that the user exists
         if user is None:
-            return Response({
-                'message': 'Wrong username or password!'
-            })
+            return JsonResponse({'detail': 'Invalid credentials.'}, status=400)
 
-        if not user.check_password(password):
-            return Response({
-                'message': 'Wrong username or password!'
-            })
+        # Login
+        login(request, user)
+        return JsonResponse({'detail': 'Successfully logged in.'})
 
-        return Response({
-            'message': 'success'
-        })
+
+class LogoutView(APIView):
+    def get(self, request):
+        logout(request)
+        return JsonResponse({'detail': 'Successfully logged out.'})
+
+
+class CSRFView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        response = JsonResponse({'detail': 'CSRF cookie set.'})
+        response['X-CSRFToken'] = get_token(request)
+        return response
+
+
+class SessionView(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [AllowAny]
+
+    @staticmethod
+    def get(request, format=None):
+        return JsonResponse({'isAuthenticated': True})
+
+
+class WhoAmIView(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+
+    @staticmethod
+    def get(request, format=None):
+        return JsonResponse({'username': request.user.username})

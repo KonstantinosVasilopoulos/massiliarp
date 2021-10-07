@@ -1,8 +1,10 @@
 import React, { FC, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { BACKEND_URL } from '../App'
 
 interface Props {
     initSettings: string[]
+    csrf: string
 }
 
 // Capitilize the first letter of each word in a string
@@ -15,7 +17,7 @@ const capitilize = (s: string) => {
     return arr.join(' ')
 }
 
-const Navbar: FC<Props> = ({ initSettings }) => {
+const Navbar: FC<Props> = ({ initSettings, csrf }) => {
     // State
     const [settings, setSettings] = useState(initSettings)
     const [dropdown, setDropdown] = useState(false)
@@ -27,6 +29,32 @@ const Navbar: FC<Props> = ({ initSettings }) => {
 
     const endTurnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         console.log('end turn')
+    }
+
+    const isResponseOk = (response: any) => {
+        if (response.status >= 200 && response.status <= 299) {
+            return response.json()
+        } else {
+            throw Error(response.statusText)
+        }
+    }
+
+    const logout = (event: React.MouseEvent<HTMLAnchorElement>) => {
+        event.preventDefault()
+        fetch(BACKEND_URL + '/logout/', {
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrf,
+            },
+            credentials: 'same-origin',
+        })
+        .then(res => isResponseOk(res))
+        .then(data => {
+            console.log(data)  // -2
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
 
     return (
@@ -49,7 +77,7 @@ const Navbar: FC<Props> = ({ initSettings }) => {
                                 <Link to={'/' + i} className="text-blue font-semibold hover:text-salmon-dark">{capitilize(i)}</Link><br />
                             </>
                         ))}
-                        <Link to="/logout" className="text-blue font-semibold hover:text-salmon-dark">Logout</Link>
+                        <Link to="/" className="text-blue font-semibold hover:text-salmon-dark" onClick={(e) => {logout(e)}}>Logout</Link>
                     </div>
                 }
             </li>
