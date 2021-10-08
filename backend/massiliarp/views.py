@@ -83,6 +83,8 @@ class LogoutView(APIView):
 
 
 class CSRFView(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request):
         response = JsonResponse({'detail': 'CSRF cookie set.'})
         response['X-CSRFToken'] = get_token(request)
@@ -107,7 +109,7 @@ class WhoAmIView(APIView):
 
     @staticmethod
     def get(request, format=None):
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return JsonResponse({'isAuthenticated': False})
 
         return JsonResponse({'username': request.user.username})

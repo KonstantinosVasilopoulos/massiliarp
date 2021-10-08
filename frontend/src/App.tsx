@@ -22,9 +22,8 @@ const App = () => {
     <Switch>
       <Route path="/" render={() => (
         <Login 
-          csrf={csrf}
+          getCsrf={() => csrf}
           setCsrf={(value: string) => {setCsrf(value)}}
-          isAuthenticated={isAuthenticated}
           setIsAuthenticated={(auth: boolean) => {setIsAuthenticated(auth)}}
         />
       )} exact />

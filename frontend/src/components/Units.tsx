@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState, useEffect, ButtonHTMLAttributes } from 'react'
 import axios from 'axios'
 import { BACKEND_URL } from '../App'
 
@@ -31,21 +31,29 @@ const Units: FC<Props> = ({ csrf, logout }) => {
     const [army, setArmy] = useState<ArmyUnit[]>([])
     const [navy, setNavy] = useState<NavyUnit[]>([])
 
+    const axiosConfig = {
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrf,
+        },
+        withCredentials: true,
+    }
+
     // Get the army units
     useEffect(() => {
-        axios.get<ArmyUnit[]>(BACKEND_URL + '/api/army-unit')
-            .then(response => {
-                setArmy(response.data)
-            })
+        axios.get<ArmyUnit[]>(BACKEND_URL + '/api/army-unit', axiosConfig)
+        .then(response => {
+            setArmy(response.data)
+        })
     }, [])
 
 
     // Get the navy's ships
     useEffect(() => {
-        axios.get<NavyUnit[]>(BACKEND_URL + '/api/navy-unit')
-            .then(response => {
-                setNavy(response.data)
-            })
+        axios.get<NavyUnit[]>(BACKEND_URL + '/api/navy-unit', axiosConfig)
+        .then(response => {
+            setNavy(response.data)
+        })
     }, [])
 
     const handleRaisedChange = (event: React.MouseEvent<HTMLInputElement>, unit: ArmyUnit) => {

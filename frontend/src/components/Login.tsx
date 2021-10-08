@@ -1,15 +1,14 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import { BACKEND_URL } from '../App'
 
 interface Props {
-    csrf: string
+    getCsrf: Function
     setCsrf: Function
-    isAuthenticated: boolean
     setIsAuthenticated: Function
 }
 
-const Login: FC<Props> = ({ csrf, setCsrf, isAuthenticated, setIsAuthenticated }) => {
+const Login: FC<Props> = ({ getCsrf, setCsrf, setIsAuthenticated }) => {
     // State
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -25,9 +24,13 @@ const Login: FC<Props> = ({ csrf, setCsrf, isAuthenticated, setIsAuthenticated }
             if (csrfToken !== null)
                 setCsrf(csrfToken)
 
-            console.log(csrf)  // -2
+            console.log(csrfToken)  // -2
         })
     }
+
+    useEffect(() => {
+        getSession()
+    }, [])
 
     const getSession = () => {
         fetch(BACKEND_URL + '/api-auth/session/', {
@@ -38,9 +41,10 @@ const Login: FC<Props> = ({ csrf, setCsrf, isAuthenticated, setIsAuthenticated }
             console.log(data)  // -2
             if (data.isAuthenticated) {
                 setIsAuthenticated(true)
-                getCSRF()
+                setLoggedIn(true)
             } else {
                 setIsAuthenticated(false)
+                getCSRF()
             }
         })
         .catch(err => {
@@ -60,13 +64,17 @@ const Login: FC<Props> = ({ csrf, setCsrf, isAuthenticated, setIsAuthenticated }
         event.preventDefault()
         fetch(BACKEND_URL + '/api-auth/login/', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCsrf(),
+            },
             credentials: 'include',
             body: JSON.stringify({username: username, password: password}),
         })
         .then(res => isResponseOk(res))
         .then(data => {
             console.log(data)
-            getSession()
+            setIsAuthenticated(true)
             setUsername('')
             setPassword('')
             setLoggedIn(true)
