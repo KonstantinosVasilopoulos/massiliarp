@@ -4,27 +4,44 @@ import { BACKEND_URL } from '../App'
 
 interface Props {
     csrf: string
+    setCsrf: Function
     isAuthenticated: boolean
-    setAuth: Function
+    setIsAuthenticated: Function
 }
 
-const Login: FC<Props> = ({ csrf, isAuthenticated, setAuth }) => {
+const Login: FC<Props> = ({ csrf, setCsrf, isAuthenticated, setIsAuthenticated }) => {
     // State
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
     const [loggedIn, setLoggedIn] = useState(false)
 
-    const whoami = () => {
-        fetch('/whoami/', {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'same-origin',
+    const getCSRF = () => {
+        fetch(BACKEND_URL + '/api-auth/csrf/', {
+            credentials: 'include',
+        })
+        .then(res => {
+            const csrfToken = res.headers.get('X-CSRFToken')
+            if (csrfToken !== null)
+                setCsrf(csrfToken)
+
+            console.log(csrf)  // -2
+        })
+    }
+
+    const getSession = () => {
+        fetch(BACKEND_URL + '/api-auth/session/', {
+            credentials: 'include',
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            console.log(data)  // -2
+            if (data.isAuthenticated) {
+                setIsAuthenticated(true)
+                getCSRF()
+            } else {
+                setIsAuthenticated(false)
+            }
         })
         .catch(err => {
             console.log(err)
@@ -41,19 +58,15 @@ const Login: FC<Props> = ({ csrf, isAuthenticated, setAuth }) => {
 
     const onLoginSubmit = (event: React.FormEvent) => {
         event.preventDefault()
-        fetch(BACKEND_URL + '/login/', {
+        fetch(BACKEND_URL + '/api-auth/login/', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrf,
-            },
-            credentials: 'same-origin',
+            credentials: 'include',
             body: JSON.stringify({username: username, password: password}),
         })
         .then(res => isResponseOk(res))
         .then(data => {
             console.log(data)
-            setAuth(true)
+            getSession()
             setUsername('')
             setPassword('')
             setLoggedIn(true)
@@ -78,7 +91,7 @@ const Login: FC<Props> = ({ csrf, isAuthenticated, setAuth }) => {
                 <input type="submit" value="Login" />
             </form>
 
-            { isAuthenticated && loggedIn && <Redirect to="/home" /> }
+            { loggedIn && <Redirect to="/home" /> }
         </div>
     )
 }

@@ -7,6 +7,7 @@ import Navbar from './Navbar'
 
 interface Props {
     csrf: string
+    logout: Function
 }
 
 interface Unit {
@@ -25,7 +26,7 @@ interface NavyUnit extends Unit {
 
 }
 
-const Units: FC<Props> = ({ csrf }) => {
+const Units: FC<Props> = ({ csrf, logout }) => {
     // State
     const [army, setArmy] = useState<ArmyUnit[]>([])
     const [navy, setNavy] = useState<NavyUnit[]>([])
@@ -55,7 +56,7 @@ const Units: FC<Props> = ({ csrf }) => {
 
     return (
         <>
-            <Navbar initSettings={['home', 'buildings', 'population']} csrf={csrf} />
+            <Navbar initSettings={['home', 'buildings', 'population']} csrf={csrf} logout={() => {logout()}} />
             <div className="flex flex-wrap justify-around">
                 {/* Army units */}
                 <div className="flex flex-col">

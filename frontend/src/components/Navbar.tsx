@@ -1,10 +1,11 @@
 import React, { FC, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { BACKEND_URL } from '../App'
 
 interface Props {
     initSettings: string[]
     csrf: string
+    logout: Function
 }
 
 // Capitilize the first letter of each word in a string
@@ -17,10 +18,11 @@ const capitilize = (s: string) => {
     return arr.join(' ')
 }
 
-const Navbar: FC<Props> = ({ initSettings, csrf }) => {
+const Navbar: FC<Props> = ({ initSettings, csrf, logout }) => {
     // State
     const [settings, setSettings] = useState(initSettings)
     const [dropdown, setDropdown] = useState(false)
+    const [isLoggedOut, setIsLoggedOut] = useState(false)
 
     const onSettingsClick = (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
@@ -39,18 +41,20 @@ const Navbar: FC<Props> = ({ initSettings, csrf }) => {
         }
     }
 
-    const logout = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const onLogoutSubmit = (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault()
-        fetch(BACKEND_URL + '/logout/', {
+        fetch(BACKEND_URL + '/api-auth/logout/', {
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRFToken': csrf,
             },
-            credentials: 'same-origin',
+            credentials: 'include',
         })
         .then(res => isResponseOk(res))
         .then(data => {
             console.log(data)  // -2
+            logout()
+            setIsLoggedOut(true)
         })
         .catch(err => {
             console.log(err)
@@ -74,10 +78,11 @@ const Navbar: FC<Props> = ({ initSettings, csrf }) => {
                     <div id="settings-dropdown">
                         {settings.map((i) => (
                             <>
-                                <Link to={'/' + i} className="text-blue font-semibold hover:text-salmon-dark">{capitilize(i)}</Link><br />
+                                <Link key={i} to={'/' + i} className="text-blue font-semibold hover:text-salmon-dark">{capitilize(i)}</Link><br />
                             </>
                         ))}
-                        <Link to="/" className="text-blue font-semibold hover:text-salmon-dark" onClick={(e) => {logout(e)}}>Logout</Link>
+                        <Link key={'logout'} to="/" className="text-blue font-semibold hover:text-salmon-dark" onClick={(e) => {onLogoutSubmit(e)}}>Logout</Link>
+                        { isLoggedOut && <Redirect to="/" /> }
                     </div>
                 }
             </li>

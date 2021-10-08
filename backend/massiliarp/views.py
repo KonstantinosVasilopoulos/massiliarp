@@ -2,10 +2,9 @@ import json
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
-from django.views.generic import View
 from rest_framework import viewsets
 from rest_framework.views import APIView
-from rest_framework.response import Response
+from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import AllowAny
 from .serializers import CityPopulationSerializer, ProfitableBuildingSerializer, \
@@ -84,8 +83,6 @@ class LogoutView(APIView):
 
 
 class CSRFView(APIView):
-    permission_classes = [AllowAny]
-
     def get(self, request):
         response = JsonResponse({'detail': 'CSRF cookie set.'})
         response['X-CSRFToken'] = get_token(request)
@@ -97,7 +94,11 @@ class SessionView(APIView):
     permission_classes = [AllowAny]
 
     @staticmethod
+    @ensure_csrf_cookie
     def get(request, format=None):
+        if not request.user.is_authenticated:
+            return JsonResponse({'isAuthenticated': False})
+
         return JsonResponse({'isAuthenticated': True})
 
 
@@ -106,4 +107,7 @@ class WhoAmIView(APIView):
 
     @staticmethod
     def get(request, format=None):
+        if not request.user.is_authenticated():
+            return JsonResponse({'isAuthenticated': False})
+
         return JsonResponse({'username': request.user.username})

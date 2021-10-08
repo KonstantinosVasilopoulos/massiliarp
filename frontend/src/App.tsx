@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Route, Switch } from 'react-router-dom'
 
 // Components
@@ -12,53 +12,28 @@ const App = () => {
   //State
   const [csrf, setCsrf] = useState('')
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  
-  useEffect(() => {
-    getSession()
-  }, [])
 
-  const getCSRF = () => {
-    fetch(BACKEND_URL + '/csrf/', {
-      credentials: 'same-origin',
-    })
-      .then(res => {
-        const csrfToken = res.headers.get('X-CSRFToken')
-        if (csrfToken !== null)
-          setCsrf(csrfToken)
-
-        console.log(csrf)  // -2
-      })
-  }
-
-  const getSession = () => {
-    fetch(BACKEND_URL + '/session/', {
-      credentials: 'same-origin',
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)  // -2
-        if (data.isAuthenticated) {
-          setIsAuthenticated(true)
-        } else {
-          setIsAuthenticated(false)
-          getCSRF()
-        }
-      })
+  const logout = () => {
+    setCsrf('')
+    setIsAuthenticated(false)
   }
 
   return (
     <Switch>
       <Route path="/" render={() => (
         <Login 
-          csrf={csrf} 
+          csrf={csrf}
+          setCsrf={(value: string) => {setCsrf(value)}}
           isAuthenticated={isAuthenticated}
-          setAuth={(auth: boolean) => {setIsAuthenticated(auth)}}
-         />
+          setIsAuthenticated={(auth: boolean) => {setIsAuthenticated(auth)}}
+        />
       )} exact />
       <Route path="/home" render={() => (
-        <Home csrf={csrf} />
+        <Home csrf={csrf} logout={() => {logout()}} />
       )} exact />
-      <Route path="/units" component={Units} exact />
+      <Route path="/units" render={() => (
+        <Units csrf={csrf} logout={() => {logout()}} />
+      )} exact />
     </Switch>
   )
 }
