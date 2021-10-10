@@ -57,16 +57,121 @@ const Units: FC<Props> = ({ cookies, setIsAuthenticated }) => {
         })
     }, [])
 
+    const isResponseOk = (response: any) => {
+        if (response.status < 200 && response.status > 299) {
+            throw Error(response.statusText)
+        }
+        return true
+    }
+
     const handleRaisedChange = (event: React.MouseEvent<HTMLInputElement>, unit: ArmyUnit) => {
         unit.raised = !unit.raised
+
+        // Make a shallow copy of the army list
+        let armyCopy = [...army]
+
+        // Find the relevant unit
+        let unitCopy = armyCopy.find(u => u.name === unit.name)
+        if (unitCopy !== undefined) {
+            // Alter the unit
+            const index = armyCopy.indexOf(unitCopy)
+            unitCopy.raised = unit.raised
+            armyCopy[index] = unitCopy
+            setArmy(armyCopy)
+        }
         
         // Put data to backend server
         axios.put(BACKEND_URL + '/api/army-unit/' + unit.name + '/', unit, axiosConfig)
-        .then(response => {
-            if (response.status < 200 && response.status > 299) {
-                throw Error(response.statusText)
+        .then(resp => isResponseOk(resp))
+    }
+
+    const onArmyUnitBtnClick = (event: React.MouseEvent<HTMLImageElement>, unit: ArmyUnit, isAddition: boolean) => {
+        event.preventDefault()
+
+        // Make a shallow copy of the army list
+        let armyCopy = [...army]
+
+        // Find the relevant unit
+        let unitCopy = armyCopy.find(u => u.name === unit.name)
+        if (unitCopy !== undefined) {
+            // Alter the unit
+            const index = armyCopy.indexOf(unitCopy)
+            unitCopy.units_recruited += isAddition ? 1 : -1
+            armyCopy[index] = unitCopy
+            setArmy(armyCopy)
+        }
+
+        // Inform the backend server about the changes
+        axios.put(BACKEND_URL + '/api/army-unit/' + unit.name + '/', unit, axiosConfig)
+        .then(resp => isResponseOk(resp))
+    }
+
+    const onNavyUnitBtnClick = (event: React.MouseEvent<HTMLImageElement>, unit: NavyUnit, isAddition: boolean) => {
+        event.preventDefault()
+
+        // Same process as the for the army
+        // Check the function above
+        let navyCopy = [...navy]
+        let unitCopy = navyCopy.find(u => u.name === unit.name)
+        if (unitCopy !== undefined) {
+            const index = navyCopy.indexOf(unitCopy)
+            unitCopy.units_recruited += isAddition ? 1 : -1
+            navyCopy[index] = unitCopy
+            setNavy(navyCopy)
+        }
+
+        axios.put(BACKEND_URL + '/api/navy-unit/' + unit.name + '/', unit, axiosConfig)
+        .then(resp => isResponseOk(resp))
+    }
+
+    const onArmyUnitNumberChange = (event: React.ChangeEvent<HTMLInputElement>, unit: ArmyUnit) => {
+        event.preventDefault()
+
+        // Make sure the given value can be safely parsed to number
+        const newValue = event.target.value
+        if (typeof newValue === 'string' && !isNaN(Number(newValue)) && newValue !== '') {
+            unit.units_recruited = parseInt(newValue)
+
+            // Shallow copy
+            let armyCopy = [...army]
+
+            // Find the unit in question
+            let unitCopy = armyCopy.find(u => u.name === unit.name)
+            if (unitCopy !== undefined) {
+                const index = armyCopy.indexOf(unitCopy)
+                unitCopy.units_recruited = unit.units_recruited
+                armyCopy[index] = unitCopy
+                setArmy(armyCopy)
+
+                axios.put(BACKEND_URL + '/api/army-unit/' + unitCopy.name + '/', unitCopy, axiosConfig)
+                .then(resp => isResponseOk(resp))
             }
-        })
+        }
+    }
+
+    const onNavyUnitNumberChange = (event: React.ChangeEvent<HTMLInputElement>, unit: NavyUnit) => {
+        event.preventDefault()
+
+        // Make sure the given value can be safely parsed to number
+        const newValue = event.target.value
+        if (typeof newValue === 'string' && !isNaN(Number(newValue)) && newValue !== '') {
+            unit.units_recruited = parseInt(newValue)
+
+            // Shallow copy
+            let navyCopy = [...navy]
+
+            // Find the unit in question
+            let unitCopy = navyCopy.find(u => u.name === unit.name)
+            if (unitCopy !== undefined) {
+                const index = navyCopy.indexOf(unitCopy)
+                unitCopy.units_recruited = unit.units_recruited
+                navyCopy[index] = unitCopy
+                setNavy(navyCopy)
+
+                axios.put(BACKEND_URL + '/api/navy-unit/' + unitCopy.name + '/', unitCopy, axiosConfig)
+                .then(resp => isResponseOk(resp))
+            }
+        }
     }
 
     return (
@@ -84,9 +189,9 @@ const Units: FC<Props> = ({ cookies, setIsAuthenticated }) => {
                                 price: {Math.ceil(unit.recruitment_cost * unit.units_recruited)} <br />
                                 upkeep: {unit.raised ? Math.ceil(unit.upkeep_cost * unit.units_recruited) : 0}
                             </div>
-                            <img src={process.env.PUBLIC_URL + '/static/minus.ico'} alt="minus icon" className="cursor-pointer unit-number-icon" />
-                            <input type="text" value={unit.units_recruited} placeholder={unit.units_recruited + ''} />
-                            <img src={process.env.PUBLIC_URL + '/static/plus.ico'} alt="plus icon" className="cursor-pointer unit-number-icon" />
+                            <img src={process.env.PUBLIC_URL + '/static/minus.ico'} alt="minus icon" onClick={e => { onArmyUnitBtnClick(e, unit, false) }} className="cursor-pointer unit-number-icon" />
+                            <input type="text" value={unit.units_recruited} placeholder={unit.units_recruited.toString()} onChange={e => {onArmyUnitNumberChange(e, unit)}} />
+                            <img src={process.env.PUBLIC_URL + '/static/plus.ico'} alt="plus icon" onClick={e => { onArmyUnitBtnClick(e, unit, true)} } className="cursor-pointer unit-number-icon" />
                         </div>
                     ))}
                 </div>
@@ -100,9 +205,9 @@ const Units: FC<Props> = ({ cookies, setIsAuthenticated }) => {
                                 price: {Math.ceil(unit.recruitment_cost * unit.units_recruited)} <br />
                                 upkeep: {Math.ceil(unit.upkeep_cost * unit.units_recruited)}
                             </div>
-                            <img src={process.env.PUBLIC_URL + '/static/minus.ico'} alt="minus icon" className="cursor-pointer unit-number-icon" />
-                            <input type="text" value={unit.units_recruited} placeholder={unit.units_recruited + ''} />
-                            <img src={process.env.PUBLIC_URL + '/static/plus.ico'} alt="plus icon" className="cursor-pointer unit-number-icon" />
+                            <img src={process.env.PUBLIC_URL + '/static/minus.ico'} alt="minus icon" onClick={e => { onNavyUnitBtnClick(e, unit, false) }} className="cursor-pointer unit-number-icon" />
+                            <input type="text" value={unit.units_recruited} placeholder={unit.units_recruited.toString()} onChange={e => { onNavyUnitNumberChange(e, unit) }} />
+                            <img src={process.env.PUBLIC_URL + '/static/plus.ico'} alt="plus icon" onClick={e => { onNavyUnitBtnClick(e, unit, true) }} className="cursor-pointer unit-number-icon" />
                         </div>
                     ))}
                 </div>
