@@ -1,11 +1,11 @@
 import json
+from django.views.generic import TemplateView
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
-from django.middleware.csrf import get_token
 from rest_framework import viewsets
 from rest_framework.views import APIView
-from django.views.decorators.csrf import ensure_csrf_cookie
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
+from django.utils.decorators import method_decorator
 from rest_framework.permissions import AllowAny
 from .serializers import CityPopulationSerializer, ProfitableBuildingSerializer, \
     MaintainableBuildingSerializer, MassiliaSettingsSerializer, ArmyUnitSerializer, \
@@ -54,8 +54,14 @@ class UniqueEventView(viewsets.ModelViewSet):
     queryset = UniqueEvent.objects.all()
 
 
+class IndexView(TemplateView):
+    """ Return the ReactJS frontend. """
+    template_name = 'build/index.html'
+
+
+@method_decorator(csrf_protect, name='dispatch')
 class LoginView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = (AllowAny, )
 
     def post(self, request):
         data = json.loads(request.body)
@@ -78,38 +84,19 @@ class LoginView(APIView):
 
 class LogoutView(APIView):
     def get(self, request):
+        if not request.user.is_authenticated:
+            return JsonResponse({'detail': 'User is not authenticated.'}, status=400)
+
         logout(request)
         return JsonResponse({'detail': 'Successfully logged out.'})
 
 
-class CSRFView(APIView):
-    permission_classes = [AllowAny]
-
-    def get(self, request):
-        response = JsonResponse({'detail': 'CSRF cookie set.'})
-        response['X-CSRFToken'] = get_token(request)
-        return response
-
-
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class SessionView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-    permission_classes = [AllowAny]
+    permission_classes = (AllowAny, )
+    
+    def  get(self, request, format=None):
+        if request.user.is_authenticated:
+            return JsonResponse({'isAuthenticated': True})
 
-    @staticmethod
-    @ensure_csrf_cookie
-    def get(request, format=None):
-        if not request.user.is_authenticated:
-            return JsonResponse({'isAuthenticated': False})
-
-        return JsonResponse({'isAuthenticated': True})
-
-
-class WhoAmIView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
-
-    @staticmethod
-    def get(request, format=None):
-        if not request.user.is_authenticated:
-            return JsonResponse({'isAuthenticated': False})
-
-        return JsonResponse({'username': request.user.username})
+        return JsonResponse({'isAuthenticated': False})

@@ -33,4 +33,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api-auth/', include('massiliarp.urls')),
+    path('', views.IndexView.as_view()),
 ]
