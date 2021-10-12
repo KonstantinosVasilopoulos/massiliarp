@@ -6,6 +6,7 @@ import Cookies from 'universal-cookie/es6'
 import Login from './components/Login'
 import Home from './components/Home'
 import Units from './components/Units'
+import Population from './components/Population'
 
 export const BACKEND_URL = 'http://localhost:8000'
 
@@ -44,6 +45,9 @@ const App = () => {
       )} exact />
       <Route path="/units" render={() => (
         <Units cookies={cookies} setIsAuthenticated={(auth: boolean) => {setIsAuthenticated(auth)}} />
+      )} exact />
+      <Route path="/population" render={() => (
+        <Population cookies={cookies} setIsAuthenticated={(auth: boolean) => {setIsAuthenticated(auth)}} />
       )} exact />
     </Switch>
   )

@@ -21,7 +21,7 @@ const capitilize = (s: string) => {
 
 const Navbar: FC<Props> = ({ initSettings, cookies, setIsAuthenticated }) => {
     // State
-    const [settings, setSettings] = useState(initSettings)
+    const settings = useState(initSettings)[0]
     const [dropdown, setDropdown] = useState(false)
     const [isLoggedOut, setIsLoggedOut] = useState(false)
 
