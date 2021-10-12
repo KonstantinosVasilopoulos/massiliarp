@@ -38,7 +38,7 @@ const App = () => {
   return (
     <Switch>
       <Route path="/" render={() => (
-        <Login cookies={cookies} isAuthenticated={isAuthenticated} />
+        <Login cookies={cookies} />
       )} exact />
       <Route path="/home" render={() => (
         <Home cookies={cookies} setIsAuthenticated={(auth: boolean) => {setIsAuthenticated(auth)}} />

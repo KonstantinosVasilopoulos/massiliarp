@@ -1,19 +1,19 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import Cookies from 'universal-cookie/es6'
+import axios from 'axios'
 import { BACKEND_URL } from '../App'
 
 interface Props {
     cookies: Cookies
-    isAuthenticated: boolean
 }
 
-const Login: FC<Props> = ({ cookies, isAuthenticated }) => {
+const Login: FC<Props> = ({ cookies }) => {
     // State
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
-    const [isLoggedIn, setIsLoggedIn] = useState(isAuthenticated)
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
     const isResponseOk = (response: any) => {
         if (response.status >= 200 && response.status <= 299) {
             return response.json()
@@ -21,6 +21,15 @@ const Login: FC<Props> = ({ cookies, isAuthenticated }) => {
             throw Error(response.statusText)
         }
     }
+
+    useEffect(() => {
+        axios.get(BACKEND_URL + '/api-auth/session/', {
+            withCredentials: true,
+        })
+        .then(response => {
+            setIsLoggedIn(response.data.isAuthenticated)
+        })
+    }, [])
 
     const onLoginSubmit = (event: React.FormEvent) => {
         event.preventDefault()
