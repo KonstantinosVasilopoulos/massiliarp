@@ -13,15 +13,15 @@ A wep application for automating the Massalia roleplay Discord server's game.
 
 ##### Economy
 
-The game is turn-based and each turn represents a span of 6 months. After each turn a new balance is calculated based on the players' actions. The virtual city's income is the sum of its taxation, trade, tributes and other one time events. On the other hand, the city's expenses result from the army's and navy's upkeep costs, plus the infrastructure's maintenance expenses. One time events may also affect the city's expenses. A balance sheet is generated at the end of each turn, while the previous turn's balance sheet is archived.
+The game is turn-based and each turn represents a span of 6 months. After each year(2 turns) a new balance is calculated based on the players' actions. The virtual city's income is the sum of its taxation, trade, tributes and other one time events. On the other hand, the city's expenses result from the army's and navy's upkeep costs, plus the infrastructure's maintenance expenses. One time events may also affect the city's expenses. A balance sheet is generated at the end of each year, while the previous year's balance sheet is archived.
 
 ##### Army & navy
 
-The web app stores the amount of each unit present in the Massilian army and navy. Each unit has a specific upkeep cost. Using the previous data, the application can calculate the entire upkeep cost the city must pay each turn. New units and unit types can also be created using the website.
+The web app stores the amount of each unit present in the Massilian army and navy. Each unit has a specific upkeep cost. Using the previous data, the application can calculate the entire upkeep cost the city must pay each year. New units and unit types can also be created using the website.
 
 ##### Infrastructure
 
-The city of Massilia has a number of buildings that contribute to the city's prosperity. Every building must be maintained each turn. Thus, every buidling's expenses must be taken into consideration at the end of every turn. On the other hand, buildings generate profit every 2 turns. The city can house multiple buildings of the same type. New building types can also be created.
+The city of Massilia has a number of buildings that contribute to the city's prosperity. Every building must be maintained each year. Thus, every buidling's expenses must be taken into consideration at the end of every year. Accordingly, buildings generate profit every 2 turns. The city can house multiple buildings of the same type. New building types can also be created.
 
 ##### Demographics
 
@@ -34,12 +34,12 @@ As of now all users have the same privileges and are subject to the same restric
 ### Functional requirements
 
 1. Users can login using their username and password.
-2. Turns have only one balance sheet.
+2. Years have only one balance sheet.
 3. A balance sheet is composed by an income section and an expenses section.
 4. The income section is generated using the city's taxation, trade income, polis tributes and unique events that add income.
 5. The expenses section contains the upkeep costs and the infrastructure maintenance expenses, in addtion to any unique events that create more expenses.
 6. The units' upkeep and the infrastructure's maintenance costs are calculated using the city's army, navy and buildings stats.
-7. Unique events influence only 1 turn.
+7. Unique events influence only 1 turn(by extension 1 year).
 8. Users can create new units.
 9. Users can create new unit types.
 10. Users can create new buildings.

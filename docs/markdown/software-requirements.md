@@ -4,7 +4,7 @@
 
 ### Introduction
 
-This document presents a synopsis of the software requirements for the online application. The document also elaborates on second use case, named *"Change Turn"*.
+This document presents a synopsis of the software requirements for the online application. The document also elaborates on the second use case, named *"Change Turn"*.
 
 ### Full description
 
@@ -35,7 +35,7 @@ This document presents a synopsis of the software requirements for the online ap
 
 ##### UC1 - User Login
 
-##### [UC2 - Change Turn](uc2-change-turn.md)
+##### [UC2 - Change Year](uc2-change-year.md)
 
 ##### UC3 - Edit Army & Navy
 
@@ -50,7 +50,7 @@ This document presents a synopsis of the software requirements for the online ap
 | Use case | Description |
 | :------: | ----------- |
 | 1        | The user logins using a simple HTML form. |
-| 2        | An *"End Turn"* button is always present on the right side of the navbar. |
+| 2        | An *"End Year"* button is always present on the right side of the navbar. |
 | 3, 4  | Army units, navy vessels and buildings use similar, simplistic forms. |
 
 ##### Quality characteristics

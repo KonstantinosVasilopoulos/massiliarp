@@ -4,9 +4,9 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>580</x>
-      <y>220</y>
-      <w>250</w>
+      <x>740</x>
+      <y>190</y>
+      <w>280</w>
       <h>270</h>
     </coordinates>
     <panel_attributes>*MassiliaSettings*
@@ -31,14 +31,14 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>550</x>
-      <y>590</y>
-      <w>310</w>
+      <x>710</x>
+      <y>560</y>
+      <w>330</w>
       <h>340</h>
     </coordinates>
     <panel_attributes>*BalanceSheet*
 --
-_+ turn: PSIF_
+_+ year: PSIF_
 + taxation: DecimalField
 + trade: DecimalField
 + polis_tributes: DecimalField
@@ -63,8 +63,8 @@ _+ turn: PSIF_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>700</x>
-      <y>480</y>
+      <x>870</x>
+      <y>450</y>
       <w>50</w>
       <h>130</h>
     </coordinates>
@@ -75,9 +75,9 @@ m2=0..*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>940</x>
-      <y>270</y>
-      <w>230</w>
+      <x>1100</x>
+      <y>240</y>
+      <w>250</w>
       <h>120</h>
     </coordinates>
     <panel_attributes>*Unit*
@@ -92,8 +92,8 @@ _+ name: CharField_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>200</x>
-      <y>290</y>
+      <x>370</x>
+      <y>260</y>
       <w>260</w>
       <h>90</h>
     </coordinates>
@@ -107,32 +107,32 @@ _+ name: CharField_
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>820</x>
-      <y>330</y>
+      <x>1010</x>
+      <y>300</y>
+      <w>110</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=0..*</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>620</x>
+      <y>300</y>
       <w>140</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m2=0..*</panel_attributes>
-    <additional_attributes>10.0;10.0;120.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>450</x>
-      <y>330</y>
-      <w>150</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-m2=0..*</panel_attributes>
-    <additional_attributes>130.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>120.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>200</x>
-      <y>40</y>
+      <x>370</x>
+      <y>10</y>
       <w>250</w>
       <h>60</h>
     </coordinates>
@@ -144,8 +144,8 @@ PSIF = PositiveSmallIntegerField</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>200</x>
-      <y>140</y>
+      <x>370</x>
+      <y>110</y>
       <w>260</w>
       <h>90</h>
     </coordinates>
@@ -158,8 +158,8 @@ _+ name: CharField_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>200</x>
-      <y>640</y>
+      <x>370</x>
+      <y>610</y>
       <w>210</w>
       <h>120</h>
     </coordinates>
@@ -175,8 +175,8 @@ _+ name: CharField_
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>200</x>
-      <y>790</y>
+      <x>370</x>
+      <y>760</y>
       <w>210</w>
       <h>100</h>
     </coordinates>
@@ -190,57 +190,59 @@ Expense</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>400</x>
-      <y>690</y>
-      <w>170</w>
+      <x>570</x>
+      <y>660</y>
+      <w>160</w>
       <h>40</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=0..*</panel_attributes>
-    <additional_attributes>150.0;10.0;10.0;10.0</additional_attributes>
+    <additional_attributes>140.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>90</x>
-      <y>440</y>
-      <w>220</w>
+      <x>270</x>
+      <y>410</y>
+      <w>200</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>*ProfitableBuilding*
 --
-+ building_income: DecimalField</panel_attributes>
++ building_income: 
+DecimalField</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>320</x>
-      <y>440</y>
-      <w>250</w>
+      <x>490</x>
+      <y>410</y>
+      <w>230</w>
       <h>70</h>
     </coordinates>
     <panel_attributes>*MaintainableBuilding*
 --
-+ buidling_maintenance: DecimalField</panel_attributes>
++ buidling_maintenance: 
+DecimalField</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>190</x>
-      <y>370</y>
-      <w>100</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
-    <additional_attributes>80.0;10.0;80.0;40.0;10.0;40.0;10.0;70.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>370</x>
-      <y>370</y>
+      <y>340</y>
+      <w>90</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;70.0;40.0;10.0;40.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>540</x>
+      <y>340</y>
       <w>90</w>
       <h>90</h>
     </coordinates>
@@ -250,8 +252,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>860</x>
-      <y>450</y>
+      <x>1030</x>
+      <y>420</y>
       <w>180</w>
       <h>70</h>
     </coordinates>
@@ -263,8 +265,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1070</x>
-      <y>450</y>
+      <x>1240</x>
+      <y>420</y>
       <w>180</w>
       <h>70</h>
     </coordinates>
@@ -276,8 +278,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>940</x>
-      <y>380</y>
+      <x>1110</x>
+      <y>350</y>
       <w>90</w>
       <h>90</h>
     </coordinates>
@@ -287,8 +289,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1090</x>
-      <y>380</y>
+      <x>1260</x>
+      <y>350</y>
       <w>80</w>
       <h>90</h>
     </coordinates>
@@ -298,8 +300,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>620</x>
-      <y>30</y>
+      <x>790</x>
+      <y>0</y>
       <w>170</w>
       <h>120</h>
     </coordinates>
@@ -315,8 +317,8 @@ m2=0..*</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>700</x>
-      <y>140</y>
+      <x>870</x>
+      <y>110</y>
       <w>30</w>
       <h>100</h>
     </coordinates>
