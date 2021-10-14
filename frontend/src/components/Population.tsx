@@ -107,7 +107,7 @@ const Population: FC<Props> = ({ cookies, setIsAuthenticated }) => {
 
     return (
         <>
-            <Navbar initSettings={['home', 'units', 'buildings']} cookies={cookies} setIsAuthenticated={setIsAuthenticated} />
+            <Navbar exclude={'population'} cookies={cookies} setIsAuthenticated={setIsAuthenticated} />
             <div className="flex flex-row flex-wrap-reverse">
                 <div className="flex flex-col">
                     <h1><u>City Population</u></h1>
@@ -119,6 +119,7 @@ const Population: FC<Props> = ({ cookies, setIsAuthenticated }) => {
                     ))}
                 </div>
                 <form className="flex flex-col" onSubmit={e => onNewCitySubmit(e)}>
+                    <h1><u>New City</u></h1>
                     <div className="felx flex-row flex-wrap">
                         <label htmlFor="name">Name:</label>
                         <input type="text" value={name} id="name" onChange={e => { e.preventDefault(); setName(e.target.value) }} />
@@ -127,7 +128,7 @@ const Population: FC<Props> = ({ cookies, setIsAuthenticated }) => {
                         <label htmlFor="population">Population:</label>
                         <input type="number" value={population} id="population" onChange={e => { onPopChange(e) }} />
                     </div>
-                    <input type="submit" value="Create" />
+                    <input type="submit" value="Create" className="cursor-pointer" />
                 </form>
             </div>
         </>

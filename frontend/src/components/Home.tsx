@@ -15,7 +15,7 @@ const Home:FC<Props> = ({ cookies, setIsAuthenticated }) => {
 
     return (
         <>
-            <Navbar initSettings={['units', 'buidlings', 'population']} cookies={cookies} setIsAuthenticated={setIsAuthenticated} />
+            <Navbar exclude={'home'} cookies={cookies} setIsAuthenticated={setIsAuthenticated} />
         </>
     )
 }

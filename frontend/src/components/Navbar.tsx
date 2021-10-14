@@ -1,10 +1,10 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import Cookies from 'universal-cookie/es6'
 import { BACKEND_URL } from '../App'
 
 interface Props {
-    initSettings: string[]
+    exclude: string
     cookies: Cookies
     setIsAuthenticated: Function
 }
@@ -19,11 +19,20 @@ const capitilize = (s: string) => {
     return arr.join(' ')
 }
 
-const Navbar: FC<Props> = ({ initSettings, cookies, setIsAuthenticated }) => {
+const Navbar: FC<Props> = ({ exclude, cookies, setIsAuthenticated }) => {
     // State
-    const settings = useState(initSettings)[0]
+    const [settings, setSettings] = useState(['home', 'units', 'buildings', 'population', 'events'])
     const [dropdown, setDropdown] = useState(false)
     const [isLoggedOut, setIsLoggedOut] = useState(false)
+
+    useEffect(() => {
+        // Remove the exclude item from the settings array
+        setSettings(settings.filter(item => {
+            if (item !== exclude) {
+                return item
+            }
+        }))
+    }, [])
 
     const onSettingsClick = (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();

@@ -42,7 +42,7 @@ const Units: FC<Props> = ({ cookies, setIsAuthenticated }) => {
 
     // Get the army units
     useEffect(() => {
-        axios.get<ArmyUnit[]>(BACKEND_URL + '/api/army-unit', axiosConfig)
+        axios.get<ArmyUnit[]>(BACKEND_URL + '/api/army-unit/', axiosConfig)
         .then(response => {
             setArmy(response.data)
         })
@@ -51,7 +51,7 @@ const Units: FC<Props> = ({ cookies, setIsAuthenticated }) => {
 
     // Get the navy's ships
     useEffect(() => {
-        axios.get<NavyUnit[]>(BACKEND_URL + '/api/navy-unit', axiosConfig)
+        axios.get<NavyUnit[]>(BACKEND_URL + '/api/navy-unit/', axiosConfig)
         .then(response => {
             setNavy(response.data)
         })
@@ -176,7 +176,7 @@ const Units: FC<Props> = ({ cookies, setIsAuthenticated }) => {
 
     return (
         <>
-            <Navbar initSettings={['home', 'buildings', 'population']} cookies={cookies} setIsAuthenticated={setIsAuthenticated} />
+            <Navbar exclude={'units'} cookies={cookies} setIsAuthenticated={setIsAuthenticated} />
             <div className="flex flex-wrap justify-around">
                 {/* Army units */}
                 <div className="flex flex-col">

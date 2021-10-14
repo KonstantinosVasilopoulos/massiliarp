@@ -7,6 +7,7 @@ import Login from './components/Login'
 import Home from './components/Home'
 import Units from './components/Units'
 import Population from './components/Population'
+import Events from './components/Events'
 
 export const BACKEND_URL = 'http://localhost:8000'
 
@@ -26,7 +27,6 @@ const App = () => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data.isAuthenticated)  // -2
       if (data.isAuthenticated) {
         setIsAuthenticated(true)
       } else {
@@ -48,6 +48,9 @@ const App = () => {
       )} exact />
       <Route path="/population" render={() => (
         <Population cookies={cookies} setIsAuthenticated={(auth: boolean) => {setIsAuthenticated(auth)}} />
+      )} exact />
+      <Route path="/events" render={() => (
+        <Events cookies={cookies} setIsAuthenticated={(auth: boolean) => { setIsAuthenticated(auth) }} />
       )} exact />
     </Switch>
   )

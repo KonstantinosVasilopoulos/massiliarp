@@ -5,9 +5,9 @@ from .unique_event import UniqueEvent
 
 
 class BalanceSheet(models.Model):
-    """ A single turn's economic report. """
+    """ A single year's economic report. """
     # Primary key
-    turn = models.PositiveSmallIntegerField(primary_key=True)
+    year = models.PositiveSmallIntegerField(primary_key=True)
 
     # Income section
     taxation = models.DecimalField(_('Taxation'), max_digits=6, decimal_places=2)

@@ -43,7 +43,7 @@ class BalanceSheetSerializer(serializers.ModelSerializer):
     class Meta:
         model = BalanceSheet
         fields = (
-            'turn',
+            'year',
             'taxation',
             'trade',
             'polis_tributes',
@@ -63,4 +63,4 @@ class BalanceSheetSerializer(serializers.ModelSerializer):
 class UniqueEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = UniqueEvent
-        fields = ('name', 'event_type', 'talents', 'turn', 'expired', 'balance_sheet')
+        fields = ('name', 'event_type', 'talents', 'year', 'expired', 'balance_sheet')
