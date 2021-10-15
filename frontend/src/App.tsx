@@ -8,6 +8,7 @@ import Home from './components/Home'
 import Units from './components/Units'
 import Population from './components/Population'
 import Events from './components/Events'
+import Buildings from './components/Buildings'
 
 export const BACKEND_URL = 'http://localhost:8000'
 
@@ -41,16 +42,19 @@ const App = () => {
         <Login cookies={cookies} />
       )} exact />
       <Route path="/home" render={() => (
-        <Home cookies={cookies} setIsAuthenticated={(auth: boolean) => {setIsAuthenticated(auth)}} />
+        <Home cookies={cookies} setIsAuthenticated={(auth: boolean) => { setIsAuthenticated(auth) }} />
       )} exact />
       <Route path="/units" render={() => (
-        <Units cookies={cookies} setIsAuthenticated={(auth: boolean) => {setIsAuthenticated(auth)}} />
+        <Units cookies={cookies} setIsAuthenticated={(auth: boolean) => { setIsAuthenticated(auth) }} />
       )} exact />
       <Route path="/population" render={() => (
-        <Population cookies={cookies} setIsAuthenticated={(auth: boolean) => {setIsAuthenticated(auth)}} />
+        <Population cookies={cookies} setIsAuthenticated={(auth: boolean) => { setIsAuthenticated(auth) }} />
       )} exact />
       <Route path="/events" render={() => (
         <Events cookies={cookies} setIsAuthenticated={(auth: boolean) => { setIsAuthenticated(auth) }} />
+      )} exact />
+      <Route path="/buildings" render={() => (
+        <Buildings cookies={cookies} setIsAuthenticated={(auth: boolean) => { setIsAuthenticated(auth) }} />
       )} exact />
     </Switch>
   )

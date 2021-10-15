@@ -121,7 +121,6 @@ const Events: FC<Props> =  ({ cookies, setIsAuthenticated }) => {
     }
 
     const handleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault()
         setIsIncome(event.target.value === 'Income')
     }
 

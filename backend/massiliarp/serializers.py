@@ -18,13 +18,13 @@ class MassiliaSettingsSerializer(serializers.ModelSerializer):
 class ProfitableBuildingSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProfitableBuilding
-        fields = ('name', 'construction_cost', 'building_income', 'settings')
+        fields = ('name', 'construction_cost', 'number_built', 'building_income', 'settings')
 
 
 class MaintainableBuildingSerializer(serializers.ModelSerializer):
     class Meta:
         model = MaintainableBuilding
-        fields = ('name', 'construction_cost', 'building_maintenance', 'settings')
+        fields = ('name', 'construction_cost', 'number_built', 'building_maintenance', 'settings')
 
 
 class ArmyUnitSerializer(serializers.ModelSerializer):
