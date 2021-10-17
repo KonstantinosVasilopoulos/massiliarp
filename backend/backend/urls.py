@@ -32,6 +32,9 @@ router.register(r'unique-event', views.UniqueEventView)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('api/latest-balance-sheet/', views.LatestBalanceSheetView.as_view()),
+    path('api/years-events/<int:year>/', views.YearsEventsView.as_view()),
+    path('api/net-diff/<int:year>/', views.NetDifferenceView.as_view()),
     path('api-auth/', include('massiliarp.urls')),
     path('', views.IndexView.as_view()),
 ]

@@ -46,7 +46,7 @@ _+ year: PSIF_
 + army_upkeep: DecimalField
 + navy_upkeep: DecimalField
 + garrison_upkeep: DecimalField
-+ infrasturcture_maintenance: DecimalField
++ infrastructure_maintenance: DecimalField
 + total_income: DecimalField
 + total_expenses: DecimalField
 + new_balance: DecimalField
@@ -168,7 +168,7 @@ _+ name: CharField_
 + name: CharField
 + event_type: EvetTypes
 + talents: DecimalField
-+ turn: PSIF
++ year: PSIF
 + expired: BooleanField</panel_attributes>
     <additional_attributes/>
   </element>

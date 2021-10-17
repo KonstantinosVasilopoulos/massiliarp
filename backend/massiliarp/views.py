@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_protect
 from django.utils.decorators import method_decorator
 from rest_framework.permissions import AllowAny
+from rest_framework.generics import ListAPIView
 from .serializers import CityPopulationSerializer, ProfitableBuildingSerializer, \
     MaintainableBuildingSerializer, MassiliaSettingsSerializer, ArmyUnitSerializer, \
     NavyUnitSerializer, BalanceSheetSerializer, UniqueEventSerializer
@@ -100,3 +101,36 @@ class SessionView(APIView):
             return JsonResponse({'isAuthenticated': True})
 
         return JsonResponse({'isAuthenticated': False})
+
+
+class LatestBalanceSheetView(APIView):
+    """ Find the latest balance sheet and send it to the user. """
+    def get(self, request, format=None):
+        max_year = BalanceSheet.objects.order_by('-year')[0]
+        serializer = BalanceSheetSerializer(max_year)
+        return JsonResponse(serializer.data, safe=False)
+
+
+class YearsEventsView(ListAPIView):
+    """ Get the events of a specific year. """
+    serializer_class = UniqueEventSerializer
+
+    def get_queryset(self):
+        year = self.kwargs['year']
+        return UniqueEvent.objects.filter(year=year)
+
+
+class NetDifferenceView(APIView):
+    """ Calculate and return the net difference of year's balance sheet. """
+    def get(self, request, format=None, *args, **kwargs):
+        year = kwargs['year']
+        matched_sheets = BalanceSheet.objects.filter(year=year)
+        if len(matched_sheets) > 0:
+            # Calculate the net difference
+            net_diff = matched_sheets[0].calculate_net_difference()
+            return JsonResponse({
+                'isProfit': net_diff[0],
+                'netDiff': net_diff[1],
+            })
+        
+        return JsonResponse({'detail', 'No balance sheet for such year found.'}, status=400)
