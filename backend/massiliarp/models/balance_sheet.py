@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -36,13 +37,13 @@ class BalanceSheet(models.Model):
     def calculate_standard_expenses(self):
         # Check the validity of the expenses variables
         if self.army_upkeep is None or self.navy_upkeep is None or self.infrastructure_maintenance is None:
-            return 0.0
+            return Decimal(0)
 
         return self.army_upkeep + self.navy_upkeep + self.garrison_upkeep + self.infrastructure_maintenance
 
 
     def calculate_income(self):
-        unique_events_income = 0.0
+        unique_events_income = Decimal(0)
         for event in UniqueEvent.objects.filter(balance_sheet=self, event_type='I', expired=False):
             unique_events_income += event.talents
             event.expired = True
@@ -52,7 +53,7 @@ class BalanceSheet(models.Model):
 
 
     def calculate_expenses(self):
-        unique_events_expenses = 0.0
+        unique_events_expenses = Decimal(0)
         for event in UniqueEvent.objects.filter(balance_sheet=self, event_type='E', expired=False):
             unique_events_expenses += event.talents
             event.expired = True
@@ -62,7 +63,7 @@ class BalanceSheet(models.Model):
 
 
     def calculate_new_balance(self):
-        self.new_balance = self.settings.balance + self.calculate_income() - self.calculate_standard_expenses()
+        self.new_balance = self.settings.balance + self.calculate_income() - self.calculate_expenses()
         return self.new_balance
 
 

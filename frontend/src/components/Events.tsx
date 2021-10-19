@@ -66,6 +66,7 @@ const Events: FC<Props> =  ({ cookies, setIsAuthenticated }) => {
             // Find whether the item already exists
             const names = events.map(i => i.name)
             const years = events.map(i => i.balance_sheet)
+            // TODO: Find a error-proof way of checking for existing events
             if (names.includes(name) && years.includes(year)) {
                 // Put HTTP request
                 const index = names.indexOf(name) + 1
@@ -78,7 +79,6 @@ const Events: FC<Props> =  ({ cookies, setIsAuthenticated }) => {
 
             } else {
                 axios.post(BACKEND_URL + '/api/unique-event/', newEvent, axiosConfig)
-
                 setEvents([...events, newEvent])
             }
 
@@ -115,7 +115,6 @@ const Events: FC<Props> =  ({ cookies, setIsAuthenticated }) => {
             // Make sure a balance sheet exists for the given year
             if (years.includes(givenYear)) {
                 setYear(givenYear)
-                console.log()
             }
         })
     }

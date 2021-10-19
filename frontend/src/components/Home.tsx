@@ -48,17 +48,18 @@ const Home:FC<Props> = ({ cookies, setIsAuthenticated }) => {
         axios.get(BACKEND_URL + '/api/latest-balance-sheet/', axiosConfig)
         .then(response => {
             setLatest(response.data)
+            return response.data.year
+        })
+        .then(year => {
+            // Get the rest of the balance sheets
+            axios.get<BalanceSheet[]>(BACKEND_URL + '/api/balance-sheet/', axiosConfig)
+            .then(response => {
+                const data = response.data
+                setSheets(data.filter(sheet => sheet.year > year))
+            })
         })
         .catch(err => {
             console.log(err)
-        })
-
-        // Get the rest of the balance sheets
-        axios.get<BalanceSheet[]>(BACKEND_URL + '/api/balance-sheet/', axiosConfig)
-        .then(response => {
-            const data = response.data
-            const years = data.map(sheet => sheet.year)
-            setSheets(data.filter(sheet => sheet.year !== Math.min(...years)))
         })
     }, [])
 

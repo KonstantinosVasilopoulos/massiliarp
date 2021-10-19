@@ -106,8 +106,9 @@ class SessionView(APIView):
 class LatestBalanceSheetView(APIView):
     """ Find the latest balance sheet and send it to the user. """
     def get(self, request, format=None):
-        max_year = BalanceSheet.objects.order_by('year')[0]
-        serializer = BalanceSheetSerializer(max_year)
+        settings = MassiliaSettings.objects.get(pk=1)
+        current_year = BalanceSheet.objects.get(year=settings.year)
+        serializer = BalanceSheetSerializer(current_year)
         return JsonResponse(serializer.data, safe=False)
 
 
@@ -134,3 +135,14 @@ class NetDifferenceView(APIView):
             })
         
         return JsonResponse({'detail', 'No balance sheet for such year found.'}, status=400)
+
+
+class EndYearView(APIView):
+    """ Progress to the next year. """
+    def get(self, request, format=None):
+        # Create the new balance sheet
+        settings = MassiliaSettings.objects.get(pk=1)
+        settings.end_year()
+
+        # Send a positive answer back
+        return JsonResponse({'details': 'Changed year successfully.'})
