@@ -21,7 +21,9 @@ const History: FC<Props> = ({ sheets, cookies }) => {
     const [current, setCurrent] = useState(0)
     const [max, setMax] = useState(0)
     const [display, setDisplay] = useState(false)
+    const [width, setWidth] = useState('33%')
     const [cursor, setCursor] = useState('pointer')
+    const [color, setColor] = useState('#65739a')  // Blue default
     const chunk = useState(1)[0]
 
     useEffect(() => {
@@ -44,7 +46,9 @@ const History: FC<Props> = ({ sheets, cookies }) => {
     const displayHistory = (event: React.MouseEvent<HTMLDivElement>) => {
         event.preventDefault()
         setDisplay(true)
+        setWidth('100%')  // Full width
         setCursor('default')
+        setColor('#e5dec2')
     }
 
     const handlePreviousClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -68,12 +72,12 @@ const History: FC<Props> = ({ sheets, cookies }) => {
     }
 
     return (
-        <div className="bg-blue" style={{ 'cursor': cursor }} onClick={e => { displayHistory(e) }}>
-            <h1>History</h1>
+        <div className="mt-12 mb-3 rounded-sm transition-all duration-1000 ease-in-out" style={{ 'width': width, 'cursor': cursor, 'backgroundColor': color }} onClick={e => { displayHistory(e) }}>
+            <h1 className="w-1/4 ml-5 md:ml-1.5 p-2 text-salmon-dark text-2xl text-center font-bold bg-blue rounded-sm">History</h1>
             {display &&
             <>
                 {displaySheets.length === 0 &&
-                <div>
+                <div className="text-xl text-salmon-dark font-bold bg-blue rounded-sm">
                     No sheets present
                 </div>}
                 {displaySheets.map(sheet => (
@@ -81,9 +85,9 @@ const History: FC<Props> = ({ sheets, cookies }) => {
                         <BalanceSheetPresenter sheet={sheet} cookies={cookies} />
                     </div>
                 ))}
-                <div className="flex flex-row">
-                    <button onClick={e => { handlePreviousClick(e) }}>Previous</button>
-                    <button onClick={e => { handleNextClick(e) }}>Next</button>
+                <div className="flex flex-row justify-between w-full">
+                    <button className="mx-3 px-3 py-2 text-salmon-dark text-lg bg-blue rounded hover:opacity-80" onClick={e => { handlePreviousClick(e) }}>&lsaquo; Previous</button>
+                    <button className="mx-3 px-3 py-2 text-salmon-dark text-lg bg-blue rounded hover:opacity-80" onClick={e => { handleNextClick(e) }}>Next &rsaquo;</button>
                 </div>
             </>}
         </div>

@@ -58,3 +58,12 @@
     padding: 3em;
     overflow: auto;
 }
+
+.roboto-mono {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.section-list li span:nth-child(even) {
+    float: right;
+    margin-right: 1.5em;
+}

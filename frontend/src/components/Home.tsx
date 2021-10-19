@@ -66,12 +66,15 @@ const Home:FC<Props> = ({ cookies, setIsAuthenticated }) => {
     return (
         <>
             <Navbar exclude={'home'} cookies={cookies} setIsAuthenticated={setIsAuthenticated} />
-            {latest !== undefined &&
-            <BalanceSheetPresenter sheet={latest} cookies={cookies} />}
+            <div className="m-auto md:w-9/12">
+                {/* Current year's balance sheet */}
+                {latest !== undefined &&
+                <BalanceSheetPresenter sheet={latest} cookies={cookies} />}
 
-            {/* History */}
-            {sheets.length > 0 &&
-            <History sheets={sheets} cookies={cookies} />}
+                {/* History */}
+                {sheets.length > 0 &&
+                <History sheets={sheets} cookies={cookies} />}
+            </div>
         </>
     )
 }

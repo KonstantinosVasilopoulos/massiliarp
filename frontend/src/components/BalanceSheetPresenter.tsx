@@ -62,14 +62,14 @@ const BalanceSheetPresenter: FC<Props> = ({ sheet, cookies }) => {
   }, [])
 
   return (
-    <div className="flex flex-col p-3">
-      <div className="w-full bg-blue">
-        {sheet.year} B.C.E.
+    <div className="flex flex-col p-3 roboto-mono">
+      <div className="w-full m-2 p-3 text-left text-salmon-dark text-2xl font-extrabold rounded-sm bg-blue">
+        <span className="ml-5">{sheet.year} B.C.E.</span>
       </div>
-      <div className="flex flex-row flex-wrap">
-        <div className="flex flex-col bg-blue">
-          <h2 className="text-salmon-dark">Income</h2>
-          <ul className="list-disc">
+      <div className="flex flex-row flex-wrap justify-center w-full m-2">
+        <div className="flex flex-col flex-grow p-3 rounded-sm bg-blue md:mr-2 md:ml-0">
+          <h2 className="ml-4 text-salmon-dark text-xl font-bold">Income</h2>
+          <ol className="ml-4 md:ml-8 pt-3 pb-3 text-md list-disc section-list">
             <li><span>Taxation</span><span>+ {sheet.taxation}</span></li>
             <li><span>Trade</span><span>+ {sheet.trade}</span></li>
             <li><span>Polis Tribute</span><span>+ {sheet.polis_tributes}</span></li>
@@ -78,28 +78,28 @@ const BalanceSheetPresenter: FC<Props> = ({ sheet, cookies }) => {
             {incomeEvents.map(income => (
               <li><span>{income.name}</span><span>+ {income.talents}</span></li>
             ))}
-            <li><span>Total</span><span>+ {sheet.total_income === undefined ? 0 : sheet.total_income}</span></li>
-          </ul>
+            <li className="font-bold"><span>Total</span><span>+ {sheet.total_income === undefined ? 0 : sheet.total_income}</span></li>
+          </ol>
         </div>
-        <div className="flex flex-col bg-blue">
-          <h2 className="text-salmon-dark">Expenses</h2>
-          <ul className="list-disc">
-            <li><span>Army Upkeep</span><span>- {sheet.army_upkeep === undefined ? 0 : sheet.army_upkeep}</span></li>
+        <div className="flex flex-col flex-grow mt-2 p-3 rounded-sm bg-blue md:mt-0 md:mr-0 md:ml-2">
+          <h2 className="ml-4 text-salmon-dark text-xl font-bold">Expenses</h2>
+          <ol className="ml-4 md:ml-8 pt-3 pb-3 text-md list-disc section-list">
             <li><span>Navy Upkeep</span><span>- {sheet.navy_upkeep === undefined ? 0 : sheet.navy_upkeep}</span></li>
+            <li><span>Army Upkeep</span><span>- {sheet.army_upkeep === undefined ? 0 : sheet.army_upkeep}</span></li>
             <li><span>Garrison Upkeep</span><span>- {sheet.garrison_upkeep}</span></li>
             <li><span>Infrastructure</span><span>- {sheet.infrastructure_maintenance === undefined ? 0 : sheet.infrastructure_maintenance}</span></li>
             {expensesEvents.map(expense => (
               <li><span>{expense.name}</span><span>- {expense.talents}</span></li>
             ))}
-            <li><span>Total</span><span>- {sheet.total_expenses ===  undefined ? 0 : sheet.total_expenses}</span></li>
-          </ul>
+            <li className="font-bold"><span>Total</span><span>- {sheet.total_expenses ===  undefined ? 0 : sheet.total_expenses}</span></li>
+          </ol>
         </div>
       </div>
       {sheet.new_balance !== undefined &&
-      <ul className="list-none bg-blue">
-        <li><span>New Balance</span><span>{sheet.new_balance >= 0 ? '+' : '-'} {sheet.new_balance}</span></li>
-        <li><span>{difference >= 0 ? 'Profit' : 'Deficit'}</span><span>{difference >= 0 ? '+' : '-'} {Math.abs(difference)}</span></li>
-        <li><span>{isProfit ? 'Net Profit' : 'Net Deficit'}</span><span>{net}</span></li>
+      <ul className="flex flex-row flex-wrap justify-around w-full m-2 p-3 list-none rounded-sm bg-blue">
+        <li className="font-bold"><span>New Balance</span><span className="ml-5">{sheet.new_balance >= 0 ? '+' : '-'} {sheet.new_balance}</span></li>
+        <li className="font-bold"><span>{difference >= 0 ? 'Profit' : 'Deficit'}</span><span className="ml-5">{difference >= 0 ? '+' : '-'} {Math.abs(difference)}</span></li>
+        <li className="font-bold"><span>{isProfit ? 'Net Profit' : 'Net Deficit'}</span><span className="ml-5">{net}</span></li>
       </ul>}
     </div>
   )
