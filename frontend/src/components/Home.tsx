@@ -6,6 +6,7 @@ import { BACKEND_URL } from '../App'
 // Components
 import Navbar from './Navbar'
 import BalanceSheetPresenter from './BalanceSheetPresenter'
+import History from './History'
 
 interface Props {
     cookies: Cookies
@@ -32,6 +33,7 @@ export interface BalanceSheet {
 const Home:FC<Props> = ({ cookies, setIsAuthenticated }) => {
     // State
     const [latest, setLatest] = useState<BalanceSheet>()
+    const [sheets, setSheets] = useState<BalanceSheet[]>([])
 
     const axiosConfig = {
         headers: {
@@ -50,6 +52,14 @@ const Home:FC<Props> = ({ cookies, setIsAuthenticated }) => {
         .catch(err => {
             console.log(err)
         })
+
+        // Get the rest of the balance sheets
+        axios.get<BalanceSheet[]>(BACKEND_URL + '/api/balance-sheet/', axiosConfig)
+        .then(response => {
+            const data = response.data
+            const years = data.map(sheet => sheet.year)
+            setSheets(data.filter(sheet => sheet.year !== Math.min(...years)))
+        })
     }, [])
 
     return (
@@ -57,6 +67,10 @@ const Home:FC<Props> = ({ cookies, setIsAuthenticated }) => {
             <Navbar exclude={'home'} cookies={cookies} setIsAuthenticated={setIsAuthenticated} />
             {latest !== undefined &&
             <BalanceSheetPresenter sheet={latest} cookies={cookies} />}
+
+            {/* History */}
+            {sheets.length > 0 &&
+            <History sheets={sheets} cookies={cookies} />}
         </>
     )
 }

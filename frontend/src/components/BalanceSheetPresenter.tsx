@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react'
+import { FC, useState, useEffect } from 'react'
 import axios from 'axios'
 import Cookies from 'universal-cookie/es6'
 import { BalanceSheet } from './Home'
@@ -25,7 +25,6 @@ interface NetDifferenceResponse {
 
 const BalanceSheetPresenter: FC<Props> = ({ sheet, cookies }) => {
   // State
-  const [balanceSheet, setBalanceSheet] = useState(sheet)
   const [incomeEvents, setIncomeEvents] = useState<UniqueEvent[]>([])
   const [expensesEvents, setExpensesEvents] = useState<UniqueEvent[]>([])
   const [difference, setDifference] = useState(0)
@@ -65,7 +64,7 @@ const BalanceSheetPresenter: FC<Props> = ({ sheet, cookies }) => {
   return (
     <div className="flex flex-col p-3">
       <div className="w-full bg-blue">
-        {balanceSheet.year} B.C.E.
+        {sheet.year} B.C.E.
       </div>
       <div className="flex flex-row flex-wrap">
         <div className="flex flex-col bg-blue">

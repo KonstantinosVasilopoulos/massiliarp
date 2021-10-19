@@ -106,7 +106,7 @@ class SessionView(APIView):
 class LatestBalanceSheetView(APIView):
     """ Find the latest balance sheet and send it to the user. """
     def get(self, request, format=None):
-        max_year = BalanceSheet.objects.order_by('-year')[0]
+        max_year = BalanceSheet.objects.order_by('year')[0]
         serializer = BalanceSheetSerializer(max_year)
         return JsonResponse(serializer.data, safe=False)
 
