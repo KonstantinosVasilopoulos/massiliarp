@@ -126,49 +126,50 @@ const Events: FC<Props> =  ({ cookies, setIsAuthenticated }) => {
     return (
         <>
             <Navbar exclude={'events'} cookies={cookies} setIsAuthenticated={setIsAuthenticated} />
-            <div className="flex flex-row flex-wrap-reverse">
-                <div className="flex flex-col">
-                    <h1><u>Events - Turn {displayYear}</u></h1>
+            <div className="my-12 w-full h-full flex flex-row flex-wrap-reverse justify-center items-end">
+                <div className="mx-6 p-6 flex flex-col justify-between bg-salmon-dark rounded-sm">
+                    <h1 className="text-xl text-blue-dark"><u>Events - Turn {displayYear}</u></h1>
                     {events.map(uniqueEvent => {
                         if (uniqueEvent.year === displayYear) {
                             return (
-                                <div className="flex flex-row flex wrap">
-                                    <h2>{uniqueEvent.name}</h2>
+                                <div className="my-2 flex flex-row flex wrap justify-between">
+                                    <h2 className="mr-3">{uniqueEvent.name}</h2>
                                     <span>{uniqueEvent.event_type === 'I' ? '+' : '-'}{uniqueEvent.talents}</span>
                                 </div>
                             )
                         }
                     })}
                 </div>
-                <form className="flex flex-col" onSubmit={e => { handleNewEventSubmit(e) }}>
-                    <h1><u>New Event</u></h1>
-                    <div className="flex flex-row flex-wrap">
-                        <label htmlFor="name">Name:</label>
+                <form className="mx-6 mb-6 p-4 flex flex-col justify-between bg-salmon-dark rounded-sm" onSubmit={e => { handleNewEventSubmit(e) }}>
+                    <h1 className="text-xl text-blue-dark"><u>New Event</u></h1>
+                    <div className="my-2 flex flex-row flex-wrap justify-between">
+                        <label className="mr-3" htmlFor="name">Name:</label>
                         <input type="text" id="name" value={name} onChange={e => {
                             e.preventDefault()
                             setName(e.target.value)
-                        }} />
+                        }} 
+                        className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
                     </div>
-                    <div className="flex flex-row flex-wrap">
-                        <label htmlFor="talents">Talents:</label>
-                        <input type="number" id="talents" value={talents} onChange={e => { onTalentsChange(e) }} />
+                    <div className="my-2 flex flex-row flex-wrap justify-between">
+                        <label className="mr-3" htmlFor="talents">Talents:</label>
+                        <input type="number" id="talents" value={talents} onChange={e => { onTalentsChange(e) }} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
                     </div>
-                    <div className="flex flex-row flex-wrap">
-                        <label htmlFor="year">Year:</label>
-                        <input type="number" id="year" value={year} onChange={e => { onYearChange(e) }} />
+                    <div className="my-2 flex flex-row flex-wrap justify-between">
+                        <label className="mr-3" htmlFor="year">Year:</label>
+                        <input type="number" id="year" value={year} onChange={e => { onYearChange(e) }} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
                     </div>
-                    <div className="flex flex-col">
-                        <label htmlFor="type">Type</label>
-                        <div>
-                            <label htmlFor="income">Income</label>
-                            <input type="radio" id="income" value="Income" checked={isIncome} onChange={e => handleTypeChange(e)} />
+                    <div className="my-2 flex flex-col align-end">
+                        <label className="self-start" htmlFor="type">Type:</label>
+                        <div className="flex flex-row justify-between">
+                            <label className="ml-8" htmlFor="income">Income</label>
+                            <input type="radio" id="income" value="Income" checked={isIncome} onChange={e => handleTypeChange(e)} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
                         </div>
-                        <div>
-                            <label htmlFor="expense">Expense</label>
-                            <input type="radio" id="expense" value="Expense" checked={!isIncome} onChange={e => handleTypeChange(e)} />
+                        <div className="flex flex-row justify-between">
+                            <label className="ml-8" htmlFor="expense">Expense</label>
+                            <input type="radio" id="expense" value="Expense" checked={!isIncome} onChange={e => handleTypeChange(e)} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
                         </div>
                     </div>
-                    <input type="submit" value="Create" className="cursor-pointer" />
+                    <input type="submit" value="Create" className="my-2 px-5 py-2 text-salmon-dark text-2xl rounded bg-blue cursor-pointer hover:opacity-80" />
                 </form>
             </div>
         </>

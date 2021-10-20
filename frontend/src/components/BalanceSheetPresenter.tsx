@@ -63,12 +63,12 @@ const BalanceSheetPresenter: FC<Props> = ({ sheet, cookies }) => {
 
   return (
     <div className="flex flex-col p-3 roboto-mono">
-      <div className="w-full m-2 p-3 text-left text-salmon-dark text-2xl font-extrabold rounded-sm bg-blue">
+      <div className="w-full m-2 p-3 text-left text-blue-dark text-2xl font-extrabold rounded-sm bg-salmon-dark">
         <span className="ml-5">{sheet.year} B.C.E.</span>
       </div>
       <div className="flex flex-row flex-wrap justify-center w-full m-2">
-        <div className="flex flex-col flex-grow p-3 rounded-sm bg-blue md:mr-2 md:ml-0">
-          <h2 className="ml-4 text-salmon-dark text-xl font-bold">Income</h2>
+        <div className="flex flex-col flex-grow p-3 rounded-sm bg-salmon-dark md:mr-2 md:ml-0">
+          <h2 className="ml-4 text-blue-dark text-xl font-bold"><u>Income</u></h2>
           <ol className="ml-4 md:ml-8 pt-3 pb-3 text-md list-disc section-list">
             <li><span>Taxation</span><span>+ {sheet.taxation}</span></li>
             <li><span>Trade</span><span>+ {sheet.trade}</span></li>
@@ -81,8 +81,8 @@ const BalanceSheetPresenter: FC<Props> = ({ sheet, cookies }) => {
             <li className="font-bold"><span>Total</span><span>+ {sheet.total_income === undefined ? 0 : sheet.total_income}</span></li>
           </ol>
         </div>
-        <div className="flex flex-col flex-grow mt-2 p-3 rounded-sm bg-blue md:mt-0 md:mr-0 md:ml-2">
-          <h2 className="ml-4 text-salmon-dark text-xl font-bold">Expenses</h2>
+        <div className="flex flex-col flex-grow mt-2 p-3 rounded-sm bg-salmon-dark md:mt-0 md:mr-0 md:ml-2">
+          <h2 className="ml-4 text-blue-dark text-xl font-bold"><u>Expenses</u></h2>
           <ol className="ml-4 md:ml-8 pt-3 pb-3 text-md list-disc section-list">
             <li><span>Navy Upkeep</span><span>- {sheet.navy_upkeep === undefined ? 0 : sheet.navy_upkeep}</span></li>
             <li><span>Army Upkeep</span><span>- {sheet.army_upkeep === undefined ? 0 : sheet.army_upkeep}</span></li>
@@ -96,7 +96,7 @@ const BalanceSheetPresenter: FC<Props> = ({ sheet, cookies }) => {
         </div>
       </div>
       {sheet.new_balance !== undefined &&
-      <ul className="flex flex-row flex-wrap justify-around w-full m-2 p-3 list-none rounded-sm bg-blue">
+      <ul className="flex flex-row flex-wrap justify-around w-full m-2 p-3 list-none rounded-sm bg-salmon-dark">
         <li className="font-bold"><span>New Balance</span><span className="ml-5">{sheet.new_balance >= 0 ? '+' : '-'} {sheet.new_balance}</span></li>
         <li className="font-bold"><span>{difference >= 0 ? 'Profit' : 'Deficit'}</span><span className="ml-5">{difference >= 0 ? '+' : '-'} {Math.abs(difference)}</span></li>
         <li className="font-bold"><span>{isProfit ? 'Net Profit' : 'Net Deficit'}</span><span className="ml-5">{net}</span></li>

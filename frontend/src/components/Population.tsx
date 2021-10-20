@@ -108,27 +108,27 @@ const Population: FC<Props> = ({ cookies, setIsAuthenticated }) => {
     return (
         <>
             <Navbar exclude={'population'} cookies={cookies} setIsAuthenticated={setIsAuthenticated} />
-            <div className="flex flex-row flex-wrap-reverse">
-                <div className="flex flex-col">
-                    <h1><u>City Population</u></h1>
+            <div className="my-12 w-full h-full flex flex-row flex-wrap-reverse justify-center items-end">
+                <div className="mx-6 p-4 flex flex-col justify-between bg-salmon-dark rounded-sm">
+                    <h1 className="text-xl text-blue-dark"><u>City Population</u></h1>
                     {cityPops.map((city: CityPopulation) => (
-                        <div key={city.name} className="flex flex-wrap">
-                            <h2>{city.name}</h2>
-                            <input type="text" value={city.population} onChange={e => { onPopulationChange(e, city.name) }} />
+                        <div key={city.name} className="my-2 flex flex-wrap justify-between">
+                            <h2 className="mr-3 text-md">{city.name}</h2>
+                            <input type="text" value={city.population} onChange={e => { onPopulationChange(e, city.name) }} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
                         </div>
                     ))}
                 </div>
-                <form className="flex flex-col" onSubmit={e => onNewCitySubmit(e)}>
-                    <h1><u>New City</u></h1>
-                    <div className="felx flex-row flex-wrap">
-                        <label htmlFor="name">Name:</label>
-                        <input type="text" value={name} id="name" onChange={e => { e.preventDefault(); setName(e.target.value) }} />
+                <form className="mx-6 mb-6 p-4 flex flex-col bg-salmon-dark rounded-sm" onSubmit={e => onNewCitySubmit(e)}>
+                    <h1 className="text-xl text-blue-dark"><u>New City</u></h1>
+                    <div className="my-2 flex flex-row flex-wrap justify-between">
+                        <label className="mr-3" htmlFor="name">Name:</label>
+                        <input type="text" value={name} id="name" onChange={e => { e.preventDefault(); setName(e.target.value) }} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
                     </div>
-                    <div className="felx flex-row flex-wrap">
-                        <label htmlFor="population">Population:</label>
-                        <input type="number" value={population} id="population" onChange={e => { onPopChange(e) }} />
+                    <div className="my-2 flex flex-row flex-wrap justify-between">
+                        <label className="mr-3" htmlFor="population">Population:</label>
+                        <input type="number" value={population} id="population" onChange={e => { onPopChange(e) }} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
                     </div>
-                    <input type="submit" value="Create" className="cursor-pointer" />
+                    <input type="submit" value="Create" className="my-2 px-5 py-2 text-salmon-dark text-2xl rounded bg-blue cursor-pointer hover:opacity-80" />
                 </form>
             </div>
         </>

@@ -164,45 +164,47 @@ const Buildings: FC<Props> = ({ cookies, setIsAuthenticated }) => {
     return (
         <>
             <Navbar exclude='buildings' cookies={cookies} setIsAuthenticated={setIsAuthenticated} />
-            <div className="flex flex-wrap-reverse">
-                <div className="flex flex-col">
-                    <h2><u>Buildings</u></h2>
+            <div className="my-12 w-full h-full flex flex-row flex-wrap-reverse justify-center items-end">
+                <div className="mx-6 p-4 flex flex-col justify-between bg-salmon-dark rounded-sm">
+                    <h2 className="text-xl text-blue-dark"><u>Buildings</u></h2>
                     {buildings.map(building => (
-                        <div className="flex flex-row flex-wrap">
-                            <h3>{building.name}</h3>
-                            <span>Construction cost: {building.construction_cost}</span>
-                            { instanceOfProfitable(building) &&
-                                <span>Income: {(building as ProfitableBuilding).building_income} talents</span>
-                            }
-                            { !instanceOfProfitable(building) &&
-                                <span>Maintenance: {(building as MaintainableBuilding).building_maintenance} talents</span>
-                            }
-                            <input type="number" value={building.number_built} onChange={e => { handleNumberChange(e, building.name, instanceOfProfitable(building)) }} />
+                        <div className="my-2 flex flex-row flex-wrap justify-between">
+                            <h3 className="text-blue-dark">{building.name}</h3>
+                            <div className="mx-3 flex flex-col justify-between items-start">
+                                <span className="text-md text-gray">Construction cost: {building.construction_cost}</span>
+                                {instanceOfProfitable(building) &&
+                                    <span className="text-md text-gray">Income: {(building as ProfitableBuilding).building_income} talents</span>
+                                }
+                                {!instanceOfProfitable(building) &&
+                                    <span className="text-md text-gray">Maintenance: {(building as MaintainableBuilding).building_maintenance} talents</span>
+                                }
+                            </div>
+                            <input type="number" value={building.number_built} onChange={e => { handleNumberChange(e, building.name, instanceOfProfitable(building)) }} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
                         </div>
                     ))}
                 </div>
-                <form className="flex flex-col" onSubmit={e => { handleNewBuildingSubmit(e) }}>
-                    <div>
-                        <label htmlFor="name">Name</label>
-                        <input type="text" id="name" value={name} onChange={e => { setName(e.target.value) }} />
+                <form className="mx-6 mb-6 p-4 flex flex-col justify-between bg-salmon-dark rounded-sm" onSubmit={e => { handleNewBuildingSubmit(e) }}>
+                    <div className="my-2 flex flex-row justify-between">
+                        <label className="mr-4" htmlFor="name">Name:</label>
+                        <input type="text" id="name" value={name} onChange={e => { setName(e.target.value) }} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
                     </div>
-                    <div>
-                        <label htmlFor="cost">Cost:</label>
-                        <input type="number" id="cost" value={cost} onChange={e => { setCost(Math.abs(parseInt(e.target.value, 10))) }} />
+                    <div className="my-2 flex flex-row justify-between">
+                        <label className="mr-4" htmlFor="cost">Cost:</label>
+                        <input type="number" id="cost" value={cost} onChange={e => { setCost(Math.abs(parseInt(e.target.value, 10))) }} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
                     </div>
-                    <div>
-                        <label htmlFor="profitable">Profit</label>
-                        <input type="radio" id="profitable" value="profitable" checked={isProfitable} onChange={e => { handleProfitableChange(e) }} />
+                    <div className="my-2 flex flex-row justify-between">
+                        <label className="mr-4" htmlFor="profitable">Profit</label>
+                        <input type="radio" id="profitable" value="profitable" checked={isProfitable} onChange={e => { handleProfitableChange(e) }} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
                     </div>
-                    <div>
-                        <label htmlFor="maintainable">Maintainable</label>
-                        <input type="radio" id="maintainable" value="maintainable" checked={!isProfitable} onChange={e => { handleProfitableChange(e) }} />
+                    <div className="my-2 flex flex-row justify-between">
+                        <label className="mr-4" htmlFor="maintainable">Maintenance</label>
+                        <input type="radio" id="maintainable" value="maintainable" checked={!isProfitable} onChange={e => { handleProfitableChange(e) }} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
                     </div>
-                    <div>
-                        <label htmlFor="talents">Talents:</label>
-                        <input type="number" id="talents" value={talents} onChange={e => { handleTalentsChange(e) }} />
+                    <div className="my-2 flex flex-row justify-between">
+                        <label className="mr-4" htmlFor="talents">Talents:</label>
+                        <input type="number" id="talents" value={talents} onChange={e => { handleTalentsChange(e) }} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
                     </div>
-                    <input type="submit" value="Create" className="cursor-pointer" />
+                    <input type="submit" value="Create" className="my-2 px-5 py-2 text-salmon-dark text-2xl rounded bg-blue cursor-pointer hover:opacity-80" />
                 </form>
             </div>
         </>

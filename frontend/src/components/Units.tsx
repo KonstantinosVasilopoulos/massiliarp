@@ -177,37 +177,37 @@ const Units: FC<Props> = ({ cookies, setIsAuthenticated }) => {
     return (
         <>
             <Navbar exclude={'units'} cookies={cookies} setIsAuthenticated={setIsAuthenticated} />
-            <div className="flex flex-wrap justify-around">
+            <div className="my-12 w-full h-full flex flex-row flex-wrap justify-center items-start">
                 {/* Army units */}
-                <div className="flex flex-col">
-                    <h1><u>Army</u></h1>
+                <div className="mx-6 mb-6 p-4 flex flex-col justify-between bg-salmon-dark rounded-sm">
+                    <h1 className="text-xl text-blue-dark"><u>Army</u></h1>
                     {army.map((unit: ArmyUnit) => (
-                        <div key={unit.name} className="flex flex-wrap">
-                            <input type="checkbox" className="cursor-pointer" defaultChecked={unit.raised} onClick={e => {handleRaisedChange(e, unit)}} />
-                            <h2>{unit.name}</h2>
-                            <div>
+                        <div key={unit.name} className="my-2 flex flex-row flex-wrap justify-between items-center">
+                            <input type="checkbox" defaultChecked={unit.raised} onClick={e => { handleRaisedChange(e, unit) }} className="mr-4 p-2 text-right text-blue-dark rounded bg-salmon-light" />
+                            <h2 className="mr-6">{unit.name}</h2>
+                            <div className="mr-3 flex flex-col justify-center text-gray text-md">
                                 price: {Math.ceil(unit.recruitment_cost * unit.units_recruited)} <br />
                                 upkeep: {unit.raised ? Math.ceil(unit.upkeep_cost * unit.units_recruited) : 0}
                             </div>
-                            <img src={process.env.PUBLIC_URL + '/static/minus.ico'} alt="minus icon" onClick={e => { onArmyUnitBtnClick(e, unit, false) }} className="cursor-pointer unit-number-icon" />
-                            <input type="text" value={unit.units_recruited} placeholder={unit.units_recruited.toString()} onChange={e => {onArmyUnitNumberChange(e, unit)}} />
-                            <img src={process.env.PUBLIC_URL + '/static/plus.ico'} alt="plus icon" onClick={e => { onArmyUnitBtnClick(e, unit, true)} } className="cursor-pointer unit-number-icon" />
+                            <img src={process.env.PUBLIC_URL + '/static/minus.ico'} alt="minus icon" onClick={e => { onArmyUnitBtnClick(e, unit, false) }} className="mx-2 cursor-pointer unit-number-icon" />
+                            <input type="text" value={unit.units_recruited} placeholder={unit.units_recruited.toString()} onChange={e => { onArmyUnitNumberChange(e, unit) }} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
+                            <img src={process.env.PUBLIC_URL + '/static/plus.ico'} alt="plus icon" onClick={e => { onArmyUnitBtnClick(e, unit, true)} } className="mx-2 cursor-pointer unit-number-icon" />
                         </div>
                     ))}
                 </div>
                 {/* Navy units */}
-                <div className="flex flex-col">
-                    <h1>Navy</h1>
+                <div className="mx-6 p-4 flex flex-col justify-between bg-salmon-dark rounded-sm">
+                    <h1 className="text-xl text-blue-dark"><u>Navy</u></h1>
                     {navy.map((unit: NavyUnit) => (
-                        <div key={unit.name} className="flex flex-wrap">
-                            <h2>{unit.name}</h2>
-                            <div>
+                        <div key={unit.name} className="my-2 flex flex-row flex-wrap justify-between items-center">
+                            <h2 className="mr-6">{unit.name}</h2>
+                            <div className="mr-3 flex flex-col justify-center text-gray text-md">
                                 price: {Math.ceil(unit.recruitment_cost * unit.units_recruited)} <br />
                                 upkeep: {Math.ceil(unit.upkeep_cost * unit.units_recruited)}
                             </div>
-                            <img src={process.env.PUBLIC_URL + '/static/minus.ico'} alt="minus icon" onClick={e => { onNavyUnitBtnClick(e, unit, false) }} className="cursor-pointer unit-number-icon" />
-                            <input type="text" value={unit.units_recruited} placeholder={unit.units_recruited.toString()} onChange={e => { onNavyUnitNumberChange(e, unit) }} />
-                            <img src={process.env.PUBLIC_URL + '/static/plus.ico'} alt="plus icon" onClick={e => { onNavyUnitBtnClick(e, unit, true) }} className="cursor-pointer unit-number-icon" />
+                            <img src={process.env.PUBLIC_URL + '/static/minus.ico'} alt="minus icon" onClick={e => { onNavyUnitBtnClick(e, unit, false) }} className="mx-2 cursor-pointer unit-number-icon" />
+                            <input type="text" value={unit.units_recruited} placeholder={unit.units_recruited.toString()} onChange={e => { onNavyUnitNumberChange(e, unit) }} className="p-2 text-right text-blue-dark rounded bg-salmon-light" />
+                            <img src={process.env.PUBLIC_URL + '/static/plus.ico'} alt="plus icon" onClick={e => { onNavyUnitBtnClick(e, unit, true) }} className="mx-2 cursor-pointer unit-number-icon" />
                         </div>
                     ))}
                 </div>
